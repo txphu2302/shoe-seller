@@ -53,4 +53,41 @@ class Users extends CoreModel
 
         return $this->execute();
     }
+
+    public function updateProfile($id, $name, $email)
+    {
+        $sql = "UPDATE users SET name = :name, email = :email WHERE id = :id";
+        $this->query($sql);
+        $this->bind(':name', $name);
+        $this->bind(':email', $email);
+        $this->bind(':id', $id, PDO::PARAM_INT);
+        return $this->execute();
+    }
+
+    public function updatePassword($id, $hashedPassword)
+    {
+        $sql = "UPDATE users SET password = :password WHERE id = :id";
+        $this->query($sql);
+        $this->bind(':password', $hashedPassword);
+        $this->bind(':id', $id, PDO::PARAM_INT);
+        return $this->execute();
+    }
+
+    public function updateAvatar($id, $avatar)
+    {
+        $sql = "UPDATE users SET avatar = :avatar WHERE id = :id";
+        $this->query($sql);
+        $this->bind(':avatar', $avatar);
+        $this->bind(':id', $id, PDO::PARAM_INT);
+        return $this->execute();
+    }
+
+    public function findByEmailExcept($email, $excludeId)
+    {
+        $sql = "SELECT id FROM users WHERE email = :email AND id != :excludeId LIMIT 1";
+        $this->query($sql);
+        $this->bind(':email', $email);
+        $this->bind(':excludeId', $excludeId, PDO::PARAM_INT);
+        return $this->single();
+    }
 }
