@@ -14,6 +14,8 @@ class AdminController extends Controller
             exit;
         }
 
-        $this->view('admin/admin');
+        $this->view('admin/layouts/header');
+        $this->view('admin/dashboard');
+        $this->view('admin/layouts/footer');
     }
 }

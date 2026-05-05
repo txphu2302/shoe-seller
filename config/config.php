@@ -6,8 +6,14 @@ define('DB_PASS', '');     // Thay đổi nếu có mật khẩu
 define('DB_NAME', 'shoe_seller');
 
 // URL cơ sở của website
-// Thay đổi tùy theo thư mục trên máy chủ của bạn
-define('BASE_URL', 'http://localhost/Shoe-Seller');
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+$host = $_SERVER['HTTP_HOST'];
+$scriptDir = dirname($_SERVER['SCRIPT_NAME']);
+$scriptDir = str_replace('\\', '/', $scriptDir);
+if ($scriptDir === '/') {
+    $scriptDir = '';
+}
+define('BASE_URL', $protocol . '://' . $host . $scriptDir);
 
 // Đường dẫn hệ thống
 define('ROOT_PATH', dirname(__DIR__));
