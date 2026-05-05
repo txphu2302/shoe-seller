@@ -11,6 +11,8 @@ spl_autoload_register(function ($className) {
         require_once APP_PATH . '/core/' . $className . '.php';
     } else if (file_exists(APP_PATH . '/controllers/' . $className . '.php')) {
         require_once APP_PATH . '/controllers/' . $className . '.php';
+    } else if (file_exists(APP_PATH . '/model/' . $className . '.php')) {
+        require_once APP_PATH . '/model/' . $className . '.php';
     } else if (file_exists(APP_PATH . '/models/' . $className . '.php')) {
         require_once APP_PATH . '/models/' . $className . '.php';
     }

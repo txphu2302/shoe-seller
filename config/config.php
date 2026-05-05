@@ -7,7 +7,7 @@ define('DB_NAME', 'shoe_seller');
 
 // URL cơ sở của website
 // Thay đổi tùy theo thư mục trên máy chủ của bạn
-define('BASE_URL', 'http://localhost:8080/Shoe-Seller');
+define('BASE_URL', 'http://localhost/Shoe-Seller');
 
 // Đường dẫn hệ thống
 define('ROOT_PATH', dirname(__DIR__));

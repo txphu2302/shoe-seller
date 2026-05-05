@@ -31,7 +31,7 @@
             <div class="header-actions">
                 <a href="#" class="header-icon"><i class="fa-solid fa-magnifying-glass"></i></a>
                 <a href="<?= BASE_URL ?>/cart" class="header-icon"><i class="fa-solid fa-cart-shopping"></i></a>
-                <a href="<?= BASE_URL ?>/auth/login" class="header-icon"><i class="fa-regular fa-user"></i></a>
+                <a href="<?= BASE_URL ?>/users/login" class="header-icon"><i class="fa-regular fa-user"></i></a>
             </div>
         </div>
     </header>

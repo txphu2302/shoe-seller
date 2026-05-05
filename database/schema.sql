@@ -99,4 +99,5 @@ CREATE TABLE IF NOT EXISTS `faqs` (
 
 -- Default Admin User (Password is 'admin123')
 INSERT IGNORE INTO `users` (`name`, `email`, `password`, `role`) VALUES
-('Administrator', 'admin@shoeseller.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin');
+('Administrator', 'admin@shoeseller.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin'),
+('John Doe', 'john.doe@shoeseller.com', '$2a$12$oK894.lncwdpKw3mUNP9J.hTvD5VForAob3o6G5ONlgzzC1Cq52ha', 'member');
