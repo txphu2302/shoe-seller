@@ -88,7 +88,68 @@ class UsersController extends Controller
 
     public function register()
     {
-        $this->view('users/register');
+        $data = [
+            'errors' => [],
+            'oldInput' => []
+        ];
+
+        if (isset($_SESSION['user']['role'])) {
+            $this->redirectByRole($_SESSION['user']['role']);
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = trim($_POST['name'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+            $password = $_POST['password'] ?? '';
+            $confirmPassword = $_POST['confirm_password'] ?? '';
+
+            $data['oldInput']['name'] = $name;
+            $data['oldInput']['email'] = $email;
+
+            if ($name === '' || $email === '' || $password === '' || $confirmPassword === '') {
+                $data['errors']['message'] = 'Vui lòng nhập đầy đủ thông tin.';
+                return $this->view('users/register', $data);
+            }
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $data['errors']['message'] = 'Email không hợp lệ.';
+                return $this->view('users/register', $data);
+            }
+
+            if (strlen($password) < 6) {
+                $data['errors']['message'] = 'Mật khẩu phải có ít nhất 6 ký tự.';
+                return $this->view('users/register', $data);
+            }
+
+            if ($password !== $confirmPassword) {
+                $data['errors']['message'] = 'Mật khẩu xác nhận không khớp.';
+                return $this->view('users/register', $data);
+            }
+
+            if ($this->usersModel->findByEmail($email)) {
+                $data['errors']['message'] = 'Email này đã được sử dụng.';
+                return $this->view('users/register', $data);
+            }
+
+            $created = $this->usersModel->createUser([
+                'name' => $name,
+                'email' => $email,
+                'password' => password_hash($password, PASSWORD_DEFAULT),
+                'avatar' => null,
+                'role' => 'member',
+                'status' => 'active'
+            ]);
+
+            if ($created) {
+                $_SESSION['success_message'] = 'Đăng ký thành công. Vui lòng đăng nhập.';
+                header('Location: ' . BASE_URL . '/users/login');
+                exit;
+            }
+
+            $data['errors']['message'] = 'Không thể tạo tài khoản. Vui lòng thử lại.';
+        }
+
+        $this->view('users/register', $data);
     }
 
     protected function redirectByRole($role)
