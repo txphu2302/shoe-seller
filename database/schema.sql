@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `faqs` (
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Default Admin User (Password is 'admin123')
+-- Default Admin User (Password is 'password')
 INSERT IGNORE INTO `users` (`name`, `email`, `password`, `role`) VALUES
 ('Administrator', 'admin@shoeseller.com', '$2y$10$0MGhvm.8E8QqIQpFSCa.de3qlnOJWr/z9F6LTFTbfWOZCJ7t6Epqy', 'admin'),
 ('John Doe', 'john.doe@shoeseller.com', '$2a$12$oK894.lncwdpKw3mUNP9J.hTvD5VForAob3o6G5ONlgzzC1Cq52ha', 'member');

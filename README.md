@@ -9,40 +9,103 @@
 ## Current Project Status
 
 ### ✅ Already Implemented
-- **MVC Architecture**: Custom routing system with App.php router
-- **Database Design**: Complete MySQL schema with all necessary tables
-- **Project Structure**: Organized folder structure for controllers, models, views, and configuration
+
+#### Core Infrastructure
+- **MVC Architecture**: Custom routing system without PHP frameworks
+- **URL Rewriting**: `.htaccess` configured for clean URLs (e.g., `/users/login` instead of `index.php?url=users/login`)
+- **Database Design**: Complete MySQL schema with 9 normalized tables
+- **Database Configuration**: Config file for database connection setup (`config/config.php`)
 - **Session Management**: Session handling for user authentication
-- **Database Configuration**: Config file for database connection setup
-- **Core Classes**: 
-  - `App.php` - Router and application kernel
-  - `Controller.php` - Base controller class
-  - `Database.php` - Database connection management
-- **Home Controller**: Basic home page controller
-- **Database Tables**:
-  - `users` - User accounts with roles (admin, member)
-  - `products` - Product catalog with categories
-  - `categories` - Product categories
-  - `product_attributes` - Product sizes and stock management
-  - `orders` & `order_details` - Order management
-  - `contacts` - Customer contact messages
-  - `faqs` - Frequently asked questions
-  - `settings` - Website configuration (logo, phone, address, etc.)
+- **Auto-loading**: PSR-4 compatible autoloader for controllers and models
+
+#### Core Classes
+- **`App.php`** - Router with URL parsing and controller dispatching
+- **`Controller.php`** - Base controller with model() and view() methods for MVC pattern
+- **`Database.php`** - PDO-based database class with prepared statements (SQL injection protection)
+
+#### Controllers (3 implemented)
+- **`HomeController`** - Homepage display
+- **`UsersController`** - User authentication and profile management
+  - Login with email/username support
+  - Secure password verification (password_verify)
+  - User status checking (ban/active)
+  - Session management
+  - Role-based redirects
+- **`AdminController`** - Admin dashboard access with permission checking
+
+#### Views & Frontend
+- **Admin Dashboard** - Srtdash template integration
+  - `admin/dashboard.php` - Main dashboard page
+  - `admin/layouts/header.php` - Admin header with CSS framework (Bootstrap 5)
+  - `admin/layouts/footer.php` - Admin footer
+- **User Authentication Pages**
+  - `users/login.php` - Login form with email/username support
+  - `users/register.php` - User registration
+  - `users/users.php` - User profile page
+- **Public Pages**
+  - `home/index.php` - Homepage
+- **Layouts**
+  - `layouts/header.php` - Public header
+  - `layouts/footer.php` - Public footer
+- **Styling**
+  - `public/css/style.css` - Custom CSS
+  - `public/admin_assets/` - Complete Srtdash admin template with CSS and JS libraries
+  - Bootstrap, FontAwesome, Themify Icons included
+
+#### Security Features Implemented
+- PDO prepared statements for database queries
+- Password hashing with PHP's password_verify()
+- Session-based authentication
+- Admin role checking
+- User status verification (ban prevention)
+- Input validation on login form
+
+#### Database Tables (9 tables)
+1. `users` - User accounts with roles (admin, member) and status (active, banned)
+2. `products` - Product catalog with categories
+3. `categories` - Product categories
+4. `product_attributes` - Product sizes and stock management
+5. `orders` - Order headers with status tracking
+6. `order_details` - Order line items
+7. `contacts` - Customer contact messages with status (unread, read, replied)
+8. `faqs` - Frequently asked questions
+9. `settings` - Website configuration (logo, phone, address, company name, etc.)
 
 ### ⏳ To Be Implemented
-- User authentication (registration, login, logout)
-- User profile management (change password, avatar, info)
-- Admin dashboard
-- Product management system
-- Shopping cart and checkout
-- Order management
+
+#### Models (Database Layer)
+- Users model with CRUD operations
+- Products model
+- Orders model
+- Contacts model
+- FAQs model
+- Comments/Reviews model
+
+#### Views & Pages
+- Product listing page with search
+- Product details page
+- News/Blog listing page with search
+- News/Blog detail page
+- Cart and checkout pages
+- Contact form page
+- FAQ display page
+- About page
+- Price list page
+- User profile management
+- Admin management pages for all resources
+
+#### Features
+- Product search and filtering
+- Shopping cart management
+- Order management and checkout
 - Comment/review system
 - News/Blog management
-- Contact form handling
+- Contact form submission and management
 - FAQ management
-- Image upload functionality
-- Search and filtering features
+- User profile editing (password, avatar, info)
 - Pagination for listings
+- Image upload functionality
+- Admin dashboard operations (CRUD for all resources)
 
 ---
 
@@ -170,40 +233,68 @@
 
 ```
 Shoe-Seller/
+├── .git/                     # Git repository
+├── .htaccess                 # URL rewriting configuration
 ├── index.php                 # Entry point with autoloader
+├── README.md
 ├── config/
 │   └── config.php           # Database and path configuration
 ├── app/
 │   ├── core/
 │   │   ├── App.php          # Router and application kernel
 │   │   ├── Controller.php   # Base controller class
-│   │   └── Database.php     # Database connection class
+│   │   └── Database.php     # PDO database connection class
 │   ├── controllers/
-│   │   └── HomeController.php
+│   │   ├── HomeController.php       # Homepage
+│   │   ├── UsersController.php      # Authentication & user management
+│   │   └── AdminController.php      # Admin dashboard
 │   ├── models/              # Model classes (to be created)
 │   └── views/
 │       ├── home/
-│       │   └── index.php
+│       │   └── index.php            # Homepage view
+│       ├── users/
+│       │   ├── login.php            # Login page
+│       │   ├── register.php         # Registration page
+│       │   ├── users.php            # User profile page
+│       │   └── img/                 # User-related images
+│       ├── admin/
+│       │   ├── dashboard.php        # Admin dashboard
+│       │   ├── admin.php            # Admin pages
+│       │   └── layouts/
+│       │       ├── header.php       # Admin header with Srtdash template
+│       │       └── footer.php       # Admin footer
 │       └── layouts/
-│           ├── header.php
-│           └── footer.php
+│           ├── header.php           # Public header
+│           └── footer.php           # Public footer
 ├── database/
-│   └── schema.sql           # Database schema
+│   └── schema.sql           # MySQL database schema
 ├── public/
 │   ├── css/
-│   │   └── style.css
-│   ├── js/
-│   ├── images/
-│   └── admin_assets/        # Dashboard template resources
-└── README.md
+│   │   └── style.css               # Custom CSS
+│   ├── js/                         # JavaScript files
+│   ├── images/                     # Website images
+│   └── admin_assets/               # Srtdash dashboard template
+│       ├── css/
+│       ├── js/
+│       ├── images/
+│       └── ...
+└── [other asset files]
 ```
+
+**Key Directories:**
+- `/app/core` - Core framework classes
+- `/app/controllers` - Request handlers (3 controllers implemented)
+- `/app/models` - Database models (to be created)
+- `/app/views` - Template files for rendering
+- `/public` - Static assets (CSS, JS, images)
+- `/config` - Configuration files
 
 ---
 
 ## Installation & Setup
 
 ### Prerequisites
-- PHP 7.0 or higher
+- PHP 7.0 or higher (tested with PHP 7.4+)
 - MySQL 5.7 or higher
 - Apache with mod_rewrite enabled
 - XAMPP or similar local development environment
@@ -217,28 +308,95 @@ Shoe-Seller/
 
 2. **Create Database**
    - Open phpMyAdmin (http://localhost/phpmyadmin)
-   - Import `database/schema.sql` file
+   - Create new database or import `database/schema.sql` file
+   - Run the schema to create all 9 tables
 
 3. **Configure Database Connection**
    - Edit `config/config.php`
-   - Update DB_HOST, DB_USER, DB_PASS, DB_NAME if needed
-   - Update BASE_URL to match your setup
+   - Update database credentials:
+     ```php
+     define('DB_HOST', 'localhost');     // Your MySQL host
+     define('DB_USER', 'root');          // Your MySQL username
+     define('DB_PASS', '');              // Your MySQL password (if any)
+     define('DB_NAME', 'shoe_seller');   // Database name
+     ```
+   - Update BASE_URL if needed:
+     ```php
+     define('BASE_URL', 'http://localhost:8080/Shoe-Seller');
+     ```
 
 4. **Set File Permissions**
-   - Make upload directories writable (e.g., public/images/)
+   - Make upload directories writable:
+     ```bash
+     chmod 755 public/images/
+     chmod 755 public/admin_assets/
+     ```
 
-5. **Start Apache and MySQL**
-   - Via XAMPP Control Panel or terminal
-   - Access: http://localhost:8080/Shoe-Seller
+5. **Verify .htaccess is Enabled**
+   - Check Apache's `httpd.conf` has `mod_rewrite` enabled
+   - Verify `AllowOverride All` is set for the project directory
+   - Test with: http://localhost:8080/Shoe-Seller/users/login (should work without index.php)
 
-6. **Default Admin Account**
-   - Username: admin@shoeseller.com
-   - Password: admin123
-   - *(Create from schema.sql insertion)*
+6. **Start Apache and MySQL**
+   - Via XAMPP Control Panel
+   - Or via terminal: `xampp start` (Windows)
+
+7. **Access the Application**
+   - **Homepage**: http://localhost:8080/Shoe-Seller/
+   - **Login**: http://localhost:8080/Shoe-Seller/users/login
+   - **Register**: http://localhost:8080/Shoe-Seller/users/register
+   - **Admin Dashboard**: http://localhost:8080/Shoe-Seller/admin/
+
+### Default Credentials
+- The database schema includes default admin account setup
+- Check `database/schema.sql` for initial admin credentials
+- Create test users via registration form at `/users/register`
+
+### Database Sample Data
+- Insert sample data into tables via phpMyAdmin after schema creation
+- Or run INSERT statements from `database/schema.sql`
+
+### Verification Checklist
+- [ ] Database connected and tables created
+- [ ] `.htaccess` URL rewriting working (clean URLs without index.php)
+- [ ] Login page accessible at `/users/login`
+- [ ] Admin dashboard accessible at `/admin/` (requires login as admin)
+- [ ] Sessions working (login/logout functionality)
+- [ ] No 404 errors when accessing controllers
 
 ---
 
-## Group Task Assignment
+## Quick Start - Currently Working Features
+
+### 🌐 Public Accessible Routes
+- **Homepage**: `/` or `/home/` - View homepage
+- **Login**: `/users/login` - User login form with email/username support
+- **Register**: `/users/register` - User registration form
+
+### 🔐 Authenticated Routes
+- **User Dashboard**: `/users/` - User profile (requires login)
+- **Admin Dashboard**: `/admin/` - Admin dashboard (requires admin role)
+
+### 🔧 Technical Features Ready to Use
+- Clean URL routing system (no index.php needed)
+- Session-based authentication
+- Admin role checking and redirection
+- User status verification (ban/active)
+- Secure password handling with hashing
+- PDO database queries with prepared statements
+- MVC pattern with controller-based architecture
+
+### 📝 Next Steps to Complete Core Features
+1. Create **Models** for database operations (Users, Products, Orders, etc.)
+2. Build **Product Management** (listing, details, search)
+3. Implement **Shopping Cart** functionality
+4. Develop **Admin CRUD operations** for all resources
+5. Create **News/Blog system**
+6. Add **Comment/Review system**
+7. Implement **Image upload** functionality
+8. Add **Search and filtering** features
+
+---
 
 ### 🤝 Common Tasks (All Members)
 - Design application model (MVC without framework)
@@ -433,6 +591,26 @@ For group coordination:
 
 ---
 
-**Last Updated**: May 2026  
-**Project Status**: In Development  
-**Version**: 1.0-alpha
+---
+
+**Last Updated**: May 5, 2026  
+**Project Status**: Core Framework Complete - Feature Development in Progress  
+**Version**: 1.0-beta
+
+### Latest Updates (May 2026)
+✅ MVC routing system with URL rewriting  
+✅ User authentication system (login/register)  
+✅ Admin dashboard integration (Srtdash template)  
+✅ Session-based access control  
+✅ Secure password handling with PDO prepared statements  
+✅ Role-based permission checking  
+✅ Database schema with 9 normalized tables  
+✅ Complete admin template assets integrated  
+
+### In Development
+🔄 Database models for data operations  
+🔄 Product management system  
+🔄 Shopping cart and order processing  
+🔄 Blog/News management  
+🔄 Comment/Review system  
+🔄 Admin CRUD operations

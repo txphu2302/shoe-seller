@@ -4,6 +4,7 @@ class HomeController extends Controller {
         // Khởi tạo dữ liệu mẫu cho Giai đoạn thiết kế Layout
         $data = [
             'title' => 'Trang chủ',
+            'page_css' => 'home',
             'best_sellers' => [
                 ['id'=>1, 'name'=>'AirMax Pure White', 'price'=>'2,500,000', 'brand'=>'Luxe', 'rating'=>4.8, 'is_new'=>true],
                 ['id'=>2, 'name'=>'Noir High-Top', 'price'=>'3,200,000', 'brand'=>'Urban', 'rating'=>4.9, 'is_new'=>false, 'discount'=>'-10%'],
@@ -22,14 +23,14 @@ class HomeController extends Controller {
     }
 
     public function about() {
-        $this->view('layouts/header', ['title' => 'Giới thiệu']);
+        $this->view('layouts/header', ['title' => 'Giới thiệu', 'page_css' => 'about']);
         echo '<div class="container section-padding"><h1>Giới thiệu ShoeSeller</h1></div>';
         $this->view('layouts/footer');
     }
 
     public function contact() {
-        $this->view('layouts/header', ['title' => 'Liên hệ']);
-        echo '<div class="container section-padding"><h1>Liên hệ chúng tôi</h1></div>';
+        $this->view('layouts/header', ['title' => 'Liên hệ', 'page_css' => 'contact']);
+        $this->view('home/contact');
         $this->view('layouts/footer');
     }
 }
