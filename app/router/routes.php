@@ -7,8 +7,12 @@ $route = [
     //admin routes
     'admin' => ['AdminController', 'index'],
     //authentication routes
-    'auth/login' => [authController::class, 'login'],
-    'auth/register' => [authController::class, 'register'],
-    'auth/logout' => [authController::class, 'logout'],
-
+    // legacy view paths kept for compatibility
+    'views/users/login' => ['AuthController', 'login'],
+    'views/users/register' => ['AuthController', 'register'],
+    'views/users/logout' => ['AuthController', 'logout'],
+    // preferred auth routes
+    'auth/login' => ['AuthController', 'login'],
+    'auth/register' => ['AuthController', 'register'],
+    'auth/logout' => ['AuthController', 'logout'],
 ];

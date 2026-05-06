@@ -23,11 +23,16 @@ class App
         $requestPath = trim(str_replace('\\', '/', $requestPath), '/');
         $scriptDir = trim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
 
-        if ($scriptDir !== '' && str_starts_with($requestPath, $scriptDir)) {
-            $requestPath = trim(substr($requestPath, strlen($scriptDir)), '/');
+        if ($scriptDir !== '') {
+            $lowerRequest = strtolower($requestPath);
+            $lowerScript = strtolower($scriptDir);
+            if (str_starts_with($lowerRequest, $lowerScript)) {
+                $requestPath = trim(substr($requestPath, strlen($scriptDir)), '/');
+            }
         }
 
-        $this->requestPath = $requestPath;
+        // Normalize route matching to lowercase to avoid case-sensitivity issues
+        $this->requestPath = strtolower($requestPath);
     }
 
     private function dispatch()
@@ -36,7 +41,16 @@ class App
 
         if ($controllerInfo === null) {
             header('HTTP/1.0 404 Not Found');
-            echo '404 Not Found';
+            echo '<h1>404 Not Found</h1>';
+            echo '<pre>';
+            echo 'Computed request path: ' . htmlspecialchars($this->requestPath) . "\n";
+            echo '$_SERVER[REQUEST_URI]: ' . htmlspecialchars($_SERVER['REQUEST_URI'] ?? '') . "\n";
+            echo '$_SERVER[SCRIPT_NAME]: ' . htmlspecialchars($_SERVER['SCRIPT_NAME'] ?? '') . "\n";
+            echo "Available routes:\n";
+            foreach (array_keys($this->route) as $r) {
+                echo htmlspecialchars($r) . "\n";
+            }
+            echo '</pre>';
             exit;
         }
 
