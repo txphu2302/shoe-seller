@@ -10,7 +10,7 @@ class AdminController extends Controller
         }
 
         if (($_SESSION['user']['role'] ?? '') !== 'admin') {
-            header('Location: ' . BASE_URL . '/users');
+            header('Location: ' . BASE_URL . '/');
             exit;
         }
 

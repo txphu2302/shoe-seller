@@ -15,7 +15,28 @@ if ($scriptDir === '/') {
 }
 define('BASE_URL', $protocol . '://' . $host . $scriptDir);
 
-// Đường dẫn hệ thống
 define('ROOT_PATH', dirname(__DIR__));
 define('APP_PATH', ROOT_PATH . '/app');
 define('PUBLIC_PATH', ROOT_PATH . '/public');
+
+// Autoload core, controller và model
+spl_autoload_register(function ($className) {
+
+    $file = APP_PATH . '/core/' . $className . '.php';
+    if (file_exists($file)) {
+        require_once $file;
+        return;
+    }
+
+    $file = APP_PATH . '/controllers/' . $className . '.php';
+    if (file_exists($file)) {
+        require_once $file;
+        return;
+    }
+
+    $file = APP_PATH . '/model/' . $className . '.php';
+    if (file_exists($file)) {
+        require_once $file;
+        return;
+    }
+});
