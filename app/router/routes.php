@@ -1,4 +1,7 @@
 <?php
+foreach (glob(__DIR__ . '/controller/**/*.php') as $controllerFile) {
+    require_once $controllerFile;
+}
 require_once 'controller/user/UserController.php';
 require_once 'Router.php';
 $router = new Router();
@@ -12,7 +15,9 @@ $router->get('/user/review', 'UserController@review');
 $router->get('/user/search', 'UserController@search');
 
 //url Authorization
-$router->get('/users/login', 'AuthController@login');
+$router->get('Shoe-Seller/users/login', 'authController@login');
+$router->get('Shoe-Seller/users/register', 'authController@register');
+$router->get('Shoe-Seller/users/logout', 'authController@logout');
 
 
 

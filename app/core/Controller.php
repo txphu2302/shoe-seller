@@ -24,8 +24,15 @@ class Controller
             extract($data);
         }
 
-        if (file_exists(APP_PATH . '/views/' . $view . '.php')) {
-            require_once APP_PATH . '/views/' . $view . '.php';
+        $viewFile = APP_PATH . '/views/' . $view . '.php';
+        // Fallback: if view is provided as a path like 'users/login' but the
+        // actual file is stored at 'views/users/login/login.php', try that.
+        $altFile = APP_PATH . '/views/' . $view . '/' . basename($view) . '.php';
+
+        if (file_exists($viewFile)) {
+            require_once $viewFile;
+        } elseif (file_exists($altFile)) {
+            require_once $altFile;
         } else {
             die('View không tồn tại.');
         }

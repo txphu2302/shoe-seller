@@ -11,7 +11,7 @@ if (isset($_SESSION['success_message'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register - ShoeSeller</title>
+    <title>Login - ShoeSeller</title>
     <!-- Bootstrap 5.3.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -79,7 +79,8 @@ if (isset($_SESSION['success_message'])) {
         }
 
         .form-title span {
-            color: #d4af37; /* Luxury Gold */
+            color: #d4af37;
+            /* Luxury Gold */
         }
 
         .form-label {
@@ -91,11 +92,11 @@ if (isset($_SESSION['success_message'])) {
 
         .form-control {
             border-radius: 0;
-            padding: 12px 15px;
+            padding: 15px;
             background-color: #000;
             border: 1px solid #333;
             color: #fff;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             transition: all 0.3s;
         }
 
@@ -124,6 +125,10 @@ if (isset($_SESSION['success_message'])) {
             color: #000;
         }
 
+        .remember-checkbox {
+            accent-color: #d4af37;
+        }
+
         .register-link {
             color: #d4af37;
             font-weight: 600;
@@ -143,7 +148,7 @@ if (isset($_SESSION['success_message'])) {
             font-size: 30px;
             color: #d4af37;
         }
-        
+
         .back-home {
             position: absolute;
             top: 30px;
@@ -154,7 +159,7 @@ if (isset($_SESSION['success_message'])) {
             transition: color 0.3s;
             z-index: 2;
         }
-        
+
         .back-home:hover {
             color: #d4af37;
         }
@@ -170,17 +175,16 @@ if (isset($_SESSION['success_message'])) {
                 <a href="<?= BASE_URL ?>" class="back-home"><i class="fa-solid fa-arrow-left"></i> Quay lại cửa hàng</a>
             </div>
 
-            <!-- Right Form -->
+            <!-- Right Login Form -->
             <div class="col-md-6 login-panel d-flex align-items-center justify-content-center p-4 p-md-5">
 
-                <!-- Decorative Icon -->
                 <div class="decor-icon">
                     <i class="fa-solid fa-shoe-prints"></i>
                 </div>
 
                 <div class="form-wrapper">
-                    <form action="<?= BASE_URL ?>/users/register" method="post">
-                        <h2 class="form-title">Register</h2>
+                    <form action="" method="post">
+                        <h2 class="form-title">Login</h2>
 
                         <?php if (isset($errors["message"])): ?>
                             <div class="alert alert-warning p-2 mb-3">
@@ -189,33 +193,30 @@ if (isset($_SESSION['success_message'])) {
                         <?php endif; ?>
 
                         <div class="mb-3">
-                            <label for="name" class="form-label">Full Name *</label>
-                            <input type="text" class="form-control" id="name" name="name"
-                                value="<?php echo isset($oldInput["name"]) ? htmlspecialchars($oldInput["name"]) : ""; ?>" required>
+                            <label for="usernameEmail" class="form-label">Username or email address *</label>
+                            <input type="text" class="form-control" id="usernameEmail" name="usernameEmail"
+                                value="<?php echo isset($oldInput["usernameEmail"]) ? htmlspecialchars($oldInput["usernameEmail"]) : ""; ?>" required>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email address *</label>
-                            <input type="email" class="form-control" id="email" name="email"
-                                value="<?php echo isset($oldInput["email"]) ? htmlspecialchars($oldInput["email"]) : ""; ?>" required>
-                        </div>
-
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="password" class="form-label">Password *</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <input type="password" class="form-control" id="password" name="password"
+                                required>
                         </div>
 
                         <div class="mb-4">
-                            <label for="confirm_password" class="form-label">Confirm Password *</label>
-                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                            <button type="submit" class="btn btn-login px-4">Log in</button>
                         </div>
 
-                        <div class="mb-4">
-                            <button type="submit" class="btn btn-login">Register</button>
+                        <div class="form-check mb-4">
+                            <input class="form-check-input remember-checkbox" type="checkbox" id="remember" name="remember">
+                            <label class="form-check-label" for="remember">
+                                Remember me
+                            </label>
                         </div>
 
                         <div class="mt-3">
-                            Already have an account? <a href="<?= BASE_URL ?>/users/login" class="register-link">Log in</a>
+                            Don't have an account? <a href="<?= BASE_URL ?>/auth/register" class="register-link">Register</a>
                         </div>
                     </form>
                 </div>

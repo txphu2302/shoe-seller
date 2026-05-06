@@ -5,7 +5,7 @@ class AdminController extends Controller
     public function index()
     {
         if (!isset($_SESSION['user'])) {
-            header('Location: ' . BASE_URL . '/users/login');
+            header('Location: ' . BASE_URL . '/auth/login');
             exit;
         }
 
