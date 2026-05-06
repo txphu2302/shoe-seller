@@ -101,3 +101,21 @@ CREATE TABLE IF NOT EXISTS `faqs` (
 INSERT IGNORE INTO `users` (`name`, `email`, `password`, `role`) VALUES
 ('Administrator', 'admin@shoeseller.com', '$2y$10$0MGhvm.8E8QqIQpFSCa.de3qlnOJWr/z9F6LTFTbfWOZCJ7t6Epqy', 'admin'),
 ('John Doe', 'john.doe@shoeseller.com', '$2a$12$oK894.lncwdpKw3mUNP9J.hTvD5VForAob3o6G5ONlgzzC1Cq52ha', 'member');
+
+
+-- Product data
+INSERT IGNORE INTO `categories` (`name`, `description`) VALUES
+('Sneakers', 'Comfortable and stylish sneakers for everyday wear.'),
+('Boots', 'Durable boots for all weather conditions.'),
+('Sandals', 'Lightweight sandals perfect for summer.'),
+('Formal Shoes', 'Elegant shoes for special occasions.');
+
+INSERT IGNORE INTO `products` (`category_id`, `name`, `description`, `price`, `image`) VALUES
+(1, 'Classic Sneakers', 'Timeless design with superior comfort.', 59.99, 'sneakers1.jpg'),
+(1, 'Sporty Sneakers', 'Perfect for workouts and casual outings.', 69.99, 'sneakers2.jpg'),
+(2, 'Leather Boots', 'Premium leather boots for durability and style.', 129.99, 'boots1.jpg'),
+(2, 'Hiking Boots', 'Rugged boots designed for outdoor adventures.', 149.99, 'boots2.jpg'),
+(3, 'Beach Sandals', 'Light and airy sandals for beach days.', 29.99, 'sandals1.jpg'),
+(3, 'City Sandals', 'Chic sandals for urban exploration.', 39.99, 'sandals2.jpg'),
+(4, 'Oxford Shoes', 'Classic formal shoes for business and events.', 89.99, 'formal1.jpg'),
+(4, 'Derby Shoes', 'Versatile formal shoes with a modern twist.', 99.99, 'formal2.jpg');
