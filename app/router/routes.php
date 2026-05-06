@@ -10,5 +10,23 @@ $router->get('/user/community', 'UserController@community');
 $router->get('/user/userinfo', 'UserController@userinfo');
 $router->get('/user/review', 'UserController@review');
 $router->get('/user/search', 'UserController@search');
+
+//url Authorization
+$router->get('/users/login', 'AuthController@login');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 return $router;
 ?>
