@@ -118,4 +118,4 @@ INSERT IGNORE INTO `products` (`category_id`, `name`, `description`, `price`, `i
 (3, 'Beach Sandals', 'Light and airy sandals for beach days.', 29.99, 'sandals1.jpg'),
 (3, 'City Sandals', 'Chic sandals for urban exploration.', 39.99, 'sandals2.jpg'),
 (4, 'Oxford Shoes', 'Classic formal shoes for business and events.', 89.99, 'formal1.jpg'),
-(4, 'Derby Shoes', 'Versatile formal shoes with a modern twist.', 99.99, 'formal2.jpg');
+(4, 'Derby Shoes', 'Versatile formal shoes with a modern twist.', 99.99, 'formal2.jpg');  
