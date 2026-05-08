@@ -53,4 +53,18 @@ class Users extends CoreModel
 
         return $this->execute();
     }
+
+    public function countUsers($role = null)
+    {
+        $sql = "SELECT COUNT(*) as count FROM users";
+        if ($role !== null) {
+            $sql .= " WHERE role = :role";
+        }
+        $this->query($sql);
+        if ($role !== null) {
+            $this->bind(':role', $role);
+        }
+        $result = $this->single();
+        return $result->count;
+    }
 }

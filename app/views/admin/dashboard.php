@@ -1,347 +1,197 @@
 
-                <!-- sales report area start -->
-                <div class="sales-report-area mt-5 mb-5">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="single-report mb-xs-30">
-                                <div class="s-report-inner pe--20 pt--30 mb-3">
-                                    <div class="icon icon-blue"><i class="fa-brands fa-bitcoin"></i></div>
-                                    <div class="s-report-title d-flex justify-content-between">
-                                        <h4 class="header-title mb-0">Bitcoin</h4>
-                                        <p>24 H</p>
-                                    </div>
-                                    <div class="d-flex justify-content-between pb-2">
-                                        <h2>$ 4567809,987</h2>
-                                        <span>- 45.87</span>
-                                    </div>
-                                </div>
-                                <canvas id="coin_sales1" height="100"></canvas>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="single-report mb-xs-30">
-                                <div class="s-report-inner pe--20 pt--30 mb-3">
-                                    <div class="icon icon-amber"><i class="fa-solid fa-bolt"></i></div>
-                                    <div class="s-report-title d-flex justify-content-between">
-                                        <h4 class="header-title mb-0">Bitcoin Dash</h4>
-                                        <p>24 H</p>
-                                    </div>
-                                    <div class="d-flex justify-content-between pb-2">
-                                        <h2>$ 4567809,987</h2>
-                                        <span>- 45.87</span>
-                                    </div>
-                                </div>
-                                <canvas id="coin_sales2" height="100"></canvas>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="single-report">
-                                <div class="s-report-inner pe--20 pt--30 mb-3">
-                                    <div class="icon icon-emerald"><i class="fa-brands fa-ethereum"></i></div>
-                                    <div class="s-report-title d-flex justify-content-between">
-                                        <h4 class="header-title mb-0">Ethereum</h4>
-                                        <p>24 H</p>
-                                    </div>
-                                    <div class="d-flex justify-content-between pb-2">
-                                        <h2>$ 4567809,987</h2>
-                                        <span>- 45.87</span>
-                                    </div>
-                                </div>
-                                <canvas id="coin_sales3" height="100"></canvas>
-                            </div>
-                        </div>
+<!-- ShoeSeller Dashboard - Nhiệm vụ 1 -->
+<!-- Statistics Cards -->
+<div class="row mt-5">
+    <div class="col-lg-4 col-md-6">
+        <div class="card border-left-success mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-1">Tổng liên hệ</h6>
+                        <h3 class="mb-0 font-weight-bold"><?= $totalContacts ?? 0 ?></h3>
+                    </div>
+                    <div class="card-icon text-primary">
+                        <i class="fa-solid fa-envelope"></i>
                     </div>
                 </div>
-                <!-- sales report area end -->
-                <!-- overview area start -->
-                <div class="row">
-                    <div class="col-xl-9 col-lg-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="header-title mb-0">Overview</h4>
-                                    <select class="custome-select border-0 pe-3">
-                                        <option selected>Last 24 Hours</option>
-                                        <option value="0">01 July 2018</option>
-                                    </select>
-                                </div>
-                                <div id="overview-chart-wrap"><canvas id="overview-chart"></canvas></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 coin-distribution">
-                        <div class="card h-full">
-                            <div class="card-body">
-                                <h4 class="header-title mb-0">Coin Distribution</h4>
-                                <div id="coin-distribution-wrap"><canvas id="coin-distribution-chart"></canvas></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- overview area end -->
-                <!-- market value area start -->
-                <div class="row mt-5 mb-5">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-sm-flex justify-content-between align-items-center">
-                                    <h4 class="header-title mb-0">Market Value And Trends</h4>
-                                    <select class="custome-select border-0 pe-3">
-                                        <option selected>Last 24 Hours</option>
-                                        <option value="0">01 July 2018</option>
-                                    </select>
-                                </div>
-                                <div class="market-status-table mt-4">
-                                    <div class="table-responsive">
-                                        <table class="dbkit-table">
-                                            <tr class="heading-td">
-                                                <td class="mv-icon">Logo</td>
-                                                <td class="coin-name">Coin Name</td>
-                                                <td class="buy">Buy</td>
-                                                <td class="sell">Sells</td>
-                                                <td class="trends">Trends</td>
-                                                <td class="attachments">Attachments</td>
-                                                <td class="stats-chart">Stats</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mv-icon"><span class="mv-coin-icon mv-indigo"><i class="fa-solid fa-bolt"></i></span></td>
-                                                <td class="coin-name">Dashcoin</td>
-                                                <td class="buy">30% <i class="fa-solid fa-caret-down text-danger"></i></td>
-                                                <td class="sell">20% <i class="fa-solid fa-caret-up text-success"></i></td>
-                                                <td class="trends"><i class="fa-solid fa-arrow-trend-up text-success"></i></td>
-                                                <td class="attachments">$ 56746,857</td>
-                                                <td class="stats-chart">
-                                                    <canvas id="mvaluechart"></canvas>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mv-icon"><span class="mv-coin-icon mv-amber"><i class="fa-solid fa-coins"></i></span></td>
-                                                <td class="coin-name">LiteCoin</td>
-                                                <td class="buy">30% <i class="fa-solid fa-caret-down text-danger"></i></td>
-                                                <td class="sell">20% <i class="fa-solid fa-caret-up text-success"></i></td>
-                                                <td class="trends"><i class="fa-solid fa-arrow-trend-down text-danger"></i></td>
-                                                <td class="attachments">$ 56746,857</td>
-                                                <td class="stats-chart">
-                                                    <canvas id="mvaluechart2"></canvas>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mv-icon"><span class="mv-coin-icon mv-blue"><i class="fa-brands fa-ethereum"></i></span></td>
-                                                <td class="coin-name">Ethereum</td>
-                                                <td class="buy">30% <i class="fa-solid fa-caret-down text-danger"></i></td>
-                                                <td class="sell">20% <i class="fa-solid fa-caret-up text-success"></i></td>
-                                                <td class="trends"><i class="fa-solid fa-arrow-trend-up text-success"></i></td>
-                                                <td class="attachments">$ 56746,857</td>
-                                                <td class="stats-chart">
-                                                    <canvas id="mvaluechart3"></canvas>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="mv-icon"><span class="mv-coin-icon mv-emerald"><i class="fa-brands fa-bitcoin"></i></span></td>
-                                                <td class="coin-name">Bitcoindash</td>
-                                                <td class="buy">30% <i class="fa-solid fa-caret-down text-danger"></i></td>
-                                                <td class="sell">20% <i class="fa-solid fa-caret-up text-success"></i></td>
-                                                <td class="trends"><i class="fa-solid fa-arrow-trend-up text-success"></i></td>
-                                                <td class="attachments">$ 56746,857</td>
-                                                <td class="stats-chart">
-                                                    <canvas id="mvaluechart4"></canvas>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- market value area end -->
-                <!-- row area start -->
-                <div class="row">
-                    <!-- Live Crypto Price area start -->
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="header-title">Live Crypto Price</h4>
-                                <div class="cripto-live mt-5">
-                                    <ul>
-                                        <li>
-                                            <div class="icon icon-blue"><i class="fa-brands fa-bitcoin"></i></div> Bitcoin<span><i class="fa-solid fa-arrow-trend-up"></i>$876909.00</span></li>
-                                        <li>
-                                            <div class="icon icon-indigo"><i class="fa-solid fa-coins"></i></div> Litecoin<span><i class="fa-solid fa-arrow-trend-up"></i>$29780.00</span></li>
-                                        <li>
-                                            <div class="icon icon-amber"><i class="fa-solid fa-bolt"></i></div> Dashcoin<span><i class="fa-solid fa-arrow-trend-up"></i>$13276.00</span></li>
-                                        <li>
-                                            <div class="icon icon-emerald"><i class="fa-brands fa-bitcoin"></i></div> Bitcoindash<span><i class="fa-solid fa-arrow-trend-down"></i>$5684.890</span></li>
-                                        <li>
-                                            <div class="icon icon-blue"><i class="fa-brands fa-ethereum"></i></div> Ethereum<span><i class="fa-solid fa-arrow-trend-down"></i>$3890.98</span></li>
-                                        <li>
-                                            <div class="icon icon-indigo"><i class="fa-solid fa-coins"></i></div> Tcoin<span><i class="fa-solid fa-arrow-trend-up"></i>$750.789</span></li>
-                                        <li>
-                                            <div class="icon icon-amber"><i class="fa-brands fa-bitcoin"></i></div> Bitcoin<span><i class="fa-solid fa-arrow-trend-up"></i>$325.037</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Live Crypto Price area end -->
-                    <!-- trading history area start -->
-                    <div class="col-lg-8 mt-sm-30 mt-xs-30">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-sm-flex justify-content-between align-items-center">
-                                    <h4 class="header-title">Trading History</h4>
-                                    <div class="trd-history-tabs">
-                                        <ul class="nav" role="tablist">
-                                            <li>
-                                                <a class="active" data-bs-toggle="tab" href="#buy_order" role="tab">Buy Order</a>
-                                            </li>
-                                            <li>
-                                                <a data-bs-toggle="tab" href="#sell_order" role="tab">Sell Order</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <select class="custome-select border-0 pe-3">
-                                        <option selected>Last 24 Hours</option>
-                                        <option value="0">01 July 2018</option>
-                                    </select>
-                                </div>
-                                <div class="trad-history mt-4">
-                                    <div class="tab-content" id="myTabContent">
-                                        <div class="tab-pane fade show active" id="buy_order" role="tabpanel">
-                                            <div class="table-responsive">
-                                                <table class="dbkit-table">
-                                                    <tr class="heading-td">
-                                                        <td>Trading ID</td>
-                                                        <td>Time</td>
-                                                        <td>Status</td>
-                                                        <td>Amount</td>
-                                                        <td>Last Trade</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>78211</td>
-                                                        <td>4.00 AM</td>
-                                                        <td>Pending</td>
-                                                        <td>$758.90</td>
-                                                        <td>$05245.090</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>782782</td>
-                                                        <td>4.00 AM</td>
-                                                        <td>Pending</td>
-                                                        <td>$77878.90</td>
-                                                        <td>$7778.090</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>89675978</td>
-                                                        <td>4.00 AM</td>
-                                                        <td>Pending</td>
-                                                        <td>$0768.90</td>
-                                                        <td>$0945.090</td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="sell_order" role="tabpanel">
-                                            <div class="table-responsive">
-                                                <table class="dbkit-table">
-                                                    <tr class="heading-td">
-                                                        <td>Trading ID</td>
-                                                        <td>Time</td>
-                                                        <td>Status</td>
-                                                        <td>Amount</td>
-                                                        <td>Last Trade</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>8964978</td>
-                                                        <td>4.00 AM</td>
-                                                        <td>Pending</td>
-                                                        <td>$445.90</td>
-                                                        <td>$094545.090</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>89675978</td>
-                                                        <td>4.00 AM</td>
-                                                        <td>Pending</td>
-                                                        <td>$78.90</td>
-                                                        <td>$074852945.090</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>78527878</td>
-                                                        <td>4.00 AM</td>
-                                                        <td>Pending</td>
-                                                        <td>$0768.90</td>
-                                                        <td>$65465.090</td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- trading history area end -->
-                </div>
-                <!-- row area end -->
-                <div class="row mt-5">
-                    <!-- latest news area start -->
-                    <div class="col-xl-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="header-title">Latest News</h4>
-                                <div class="letest-news mt-5">
-                                    <div class="single-post mb-xs-40 mb-sm-40">
-                                        <div class="lts-thumb">
-                                            <picture><source srcset="<?= BASE_URL ?>/public/admin_assets/images/blog/post-thumb1.avif" type="image/avif"><img src="<?= BASE_URL ?>/public/admin_assets/images/blog/post-thumb1.jpg" alt="post thumb"></picture>
-                                        </div>
-                                        <div class="lts-content">
-                                            <span>Admin Post</span>
-                                            <h2><a href="#">Sed ut perspiciatis unde omnis iste.</a></h2>
-                                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some...</p>
-                                        </div>
-                                    </div>
-                                    <div class="single-post">
-                                        <div class="lts-thumb">
-                                            <picture><source srcset="<?= BASE_URL ?>/public/admin_assets/images/blog/post-thumb2.avif" type="image/avif"><img src="<?= BASE_URL ?>/public/admin_assets/images/blog/post-thumb2.jpg" alt="post thumb"></picture>
-                                        </div>
-                                        <div class="lts-content">
-                                            <span>Admin Post</span>
-                                            <h2><a href="#">Sed ut perspiciatis unde omnis iste.</a></h2>
-                                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some...</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- latest news area end -->
-                    <!-- exchange area start -->
-                    <div class="col-xl-6 mt-md-30 mt-xs-30 mt-sm-30">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="header-title">Exchange</h4>
-                                <div class="exhcange-rate mt-5">
-                                    <form action="#">
-                                        <div class="input-form">
-                                            <input type="text" value="0.76834">
-                                            <span>BTC</span>
-                                        </div>
-                                        <div class="exchange-devider">To</div>
-                                        <div class="input-form">
-                                            <input type="text" value="5689.846">
-                                            <span>USD</span>
-                                        </div>
-                                        <div class="exchange-btn">
-                                            <button type="submit">Exchange Now</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- exchange area end -->
-                </div>
-                <!-- row area start-->
+            </div>
+            <div class="card-footer bg-white border-top-0">
+                <a href="<?= BASE_URL ?>/admin/contacts" class="text-decoration-none">
+                    <span class="text-primary">Xem tất cả</span> <i class="fa-solid fa-arrow-right"></i>
+                </a>
             </div>
         </div>
-        
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="card border-left-warning mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-1">Liên hệ chưa đọc</h6>
+                        <h3 class="mb-0 font-weight-bold"><?= $unreadContacts ?? 0 ?></h3>
+                    </div>
+                    <div class="card-icon text-warning">
+                        <i class="fa-solid fa-envelope-open"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-white border-top-0">
+                <a href="<?= BASE_URL ?>/admin/contacts?status=unread" class="text-decoration-none">
+                    <span class="text-warning">Xem ngay</span> <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="card border-left-info mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-1">Cài đặt Website</h6>
+                        <h3 class="mb-0 font-weight-bold"><i class="fa-solid fa-cog"></i></h3>
+                    </div>
+                    <div class="card-icon text-info">
+                        <i class="fa-solid fa-sliders-h"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-white border-top-0">
+                <a href="<?= BASE_URL ?>/admin/settings" class="text-decoration-none">
+                    <span class="text-info">Quản lý cài đặt</span> <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Access Links -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h4 class="header-title mb-0"><i class="fa-solid fa-bolt text-warning"></i> Truy cập nhanh</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <a href="<?= BASE_URL ?>/admin/settings" class="btn btn-outline-dark w-100 py-3">
+                            <i class="fa-solid fa-cog fa-2x mb-2 d-block"></i>
+                            Cài đặt Website
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="<?= BASE_URL ?>/admin/contacts" class="btn btn-outline-dark w-100 py-3">
+                            <i class="fa-solid fa-envelope fa-2x mb-2 d-block"></i>
+                            Quản lý Liên hệ
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="<?= BASE_URL ?>" target="_blank" class="btn btn-outline-dark w-100 py-3">
+                            <i class="fa-solid fa-external-link-alt fa-2x mb-2 d-block"></i>
+                            Xem Website
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="<?= BASE_URL ?>/users/logout" class="btn btn-outline-danger w-100 py-3" onclick="return confirm('Bạn có chắc muốn đăng xuất?')">
+                            <i class="fa-solid fa-sign-out-alt fa-2x mb-2 d-block"></i>
+                            Đăng xuất
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Contacts -->
+<div class="row mt-4">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h4 class="header-title mb-0"><i class="fa-solid fa-envelope text-warning"></i> Liên hệ gần đây</h4>
+                <a href="<?= BASE_URL ?>/admin/contacts" class="btn btn-sm btn-gold">Xem tất cả</a>
+            </div>
+            <div class="card-body">
+                <?php if (!empty($contacts) && count($contacts) > 0): ?>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Người gửi</th>
+                                    <th>Nội dung</th>
+                                    <th>Trạng thái</th>
+                                    <th>Ngày</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
+                                $recentContacts = array_slice($contacts, 0, 5);
+                                foreach ($recentContacts as $contact): 
+                                ?>
+                                    <tr class="<?= $contact->status === 'unread' ? 'table-warning' : '' ?>">
+                                        <td>
+                                            <strong><?= htmlspecialchars($contact->name) ?></strong><br>
+                                            <small class="text-muted"><?= htmlspecialchars($contact->email) ?></small>
+                                        </td>
+                                        <td><?= htmlspecialchars(substr($contact->message, 0, 50)) ?>...</td>
+                                        <td>
+                                            <?php if ($contact->status === 'unread'): ?>
+                                                <span class="badge bg-warning text-dark">Chưa đọc</span>
+                                            <?php elseif ($contact->status === 'read'): ?>
+                                                <span class="badge bg-info">Đã đọc</span>
+                                            <?php else: ?>
+                                                <span class="badge bg-success">Đã phản hồi</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td><?= date('d/m/Y', strtotime($contact->created_at)) ?></td>
+                                        <td>
+                                            <a href="<?= BASE_URL ?>/admin/contact/view/<?= $contact->id ?>" class="btn btn-sm btn-outline-primary">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php else: ?>
+                    <div class="text-center py-4">
+                        <i class="fa-solid fa-inbox fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">Chưa có liên hệ nào</p>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h4 class="header-title mb-0"><i class="fa-solid fa-info-circle text-warning"></i> Thông tin hệ thống</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-3 d-flex justify-content-between">
+                        <span><i class="fa-solid fa-code"></i> Phiên bản PHP:</span>
+                        <span class="badge bg-secondary"><?= phpversion() ?></span>
+                    </li>
+                    <li class="mb-3 d-flex justify-content-between">
+                        <span><i class="fa-solid fa-database"></i> Database:</span>
+                        <span class="badge bg-secondary">MySQL</span>
+                    </li>
+                    <li class="mb-3 d-flex justify-content-between">
+                        <span><i class="fa-solid fa-user-shield"></i> Tài khoản:</span>
+                        <span class="badge bg-success"><?= $_SESSION['user']['name'] ?? 'Admin' ?></span>
+                    </li>
+                    <li class="mb-3 d-flex justify-content-between">
+                        <span><i class="fa-solid fa-clock"></i> Thời gian:</span>
+                        <span class="badge bg-info"><?= date('H:i d/m/Y') ?></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- row area start-->
+</div>
+</div>

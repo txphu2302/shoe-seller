@@ -1,0 +1,161 @@
+/* ShoeSeller Admin Custom Styles */
+
+/* Gold accent color */
+.text-gold { color: #d4af37 !important; }
+.bg-gold { background-color: #d4af37 !important; }
+.border-gold { border-color: #d4af37 !important; }
+
+/* Card hover effects */
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Button styles */
+.btn-gold {
+    background-color: #d4af37;
+    color: #000;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-gold:hover {
+    background-color: #b8962e;
+    color: #000;
+    transform: translateY(-1px);
+}
+
+/* Sidebar active menu */
+.metismenu li a.active {
+    color: #d4af37 !important;
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.metismenu li a:hover {
+    color: #d4af37 !important;
+}
+
+/* Table styles */
+.table th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(212, 175, 55, 0.05);
+}
+
+/* Form styles */
+.form-control:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+n}
+
+/* Card icon styles */
+.card-icon {
+    font-size: 2.5rem;
+    color: #d4af37;
+    opacity: 0.8;
+}
+
+/* Border left colors for stat cards */
+.border-left-primary { border-left: 4px solid #007bff !important; }
+.border-left-success { border-left: 4px solid #28a745 !important; }
+.border-left-info { border-left: 4px solid #17a2b8 !important; }
+.border-left-warning { border-left: 4px solid #d4af37 !important; }
+
+/* Badge styles */
+.badge-gold {
+    background-color: #d4af37;
+    color: #000;
+}
+
+/* Alert styles */
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+/* Navigation tabs */
+.nav-tabs .nav-link.active {
+    color: #d4af37;
+    border-bottom-color: #d4af37;
+}
+
+/* Page title */
+.page-title {
+    color: #333;
+    font-weight: 600;
+}
+
+/* Breadcrumb styles */
+.breadcrumbs li a {
+    color: #d4af37;
+}
+
+.breadcrumbs li span {
+    color: #666;
+}
+
+/* Preloader */
+#preloader {
+    background: #1a1a1a;
+}
+
+.loader {
+    border-color: #d4af37;
+    border-top-color: transparent;
+}
+
+/* Footer */
+.footer-area {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card-icon {
+        font-size: 2rem;
+    }
+    
+    .page-title {
+        font-size: 1.25rem;
+    }
+}
+
+/* Animation for new items */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.table-warning {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Status badges */
+.badge.bg-warning {
+    background-color: #ffc107 !important;
+}
+
+.badge.bg-info {
+    background-color: #17a2b8 !important;
+}
+
+.badge.bg-success {
+    background-color: #28a745 !important;
+}

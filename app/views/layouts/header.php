@@ -22,7 +22,7 @@ if ($currentPage === '' || ($currentPage === 'home' && $currentAction === 'index
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= isset($title) ? $title . ' - ShoeSeller' : 'ShoeSeller - Bước đi đẳng cấp' ?></title>
+    <title><?= isset($title) ? $title . ' - ' . ($settings['company_name'] ?? 'ShoeSeller') : ($settings['company_name'] ?? 'ShoeSeller') . ' - Bước đi đẳng cấp' ?></title>
     
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -46,7 +46,7 @@ if ($currentPage === '' || ($currentPage === 'home' && $currentAction === 'index
         <div class="container">
             <a href="<?= BASE_URL ?>" class="logo">
                 <i class="fa-solid fa-shoe-prints" style="color: var(--primary-color);"></i>
-                Shoe<span>Seller</span>
+                <?= $settings['company_name'] ?? 'ShoeSeller' ?>
             </a>
             
             <nav class="nav-links">

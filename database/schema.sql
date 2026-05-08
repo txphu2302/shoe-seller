@@ -21,11 +21,49 @@ CREATE TABLE IF NOT EXISTS `settings` (
 
 -- Insert default settings
 INSERT IGNORE INTO `settings` (`key_name`, `key_value`) VALUES
+-- Website Info
 ('logo', 'default_logo.png'),
 ('phone', '0123456789'),
-('address', 'Ho Chi Minh City, Vietnam'),
-('company_name', 'Shoe Seller Inc.'),
-('about_short', 'We sell the best shoes in the world.');
+('address', '227 Nguyễn Văn Cừ, Phường 4, Quận 5, TP.HCM'),
+('company_name', 'ShoeSeller'),
+('about_short', 'ShoeSeller - Cửa hàng giày thời trang cao cấp. Chúng tôi cung cấp những mẫu giày mới nhất, chất lượng nhất với giá cả hợp lý.'),
+('email', 'info@shoeseller.com'),
+('facebook', 'https://facebook.com/shoeseller'),
+('instagram', 'https://instagram.com/shoeseller'),
+('twitter', ''),
+
+-- Hero Banner Settings
+('hero_title', 'Hàng hiệu giá tốt lên đến 50%'),
+('hero_subtitle', 'GIÀY ĐẸP GIÁ TỐT'),
+('hero_description', 'Khám phá bộ sưu tập giày thời trang mới nhất với giá ưu đãi đặc biệt. Chất lượng cao cấp, phong cách đẳng cấp.'),
+('hero_button_text', 'MUA NGAY'),
+('hero_button_link', '/products'),
+('hero_background', '/public/images/hero-bg.jpg'),
+
+-- Featured Products Settings
+('best_sellers_title', 'BÁN CHẠY'),
+('best_sellers_count', '8'),
+('new_arrivals_title', 'HÀNG MỚI'),
+('new_arrivals_count', '4'),
+
+-- About Section
+('about_title', 'Về Shoe Seller'),
+('about_content', 'Shoe Seller là cửa hàng giày chính hãng với nhiều năm kinh nghiệm trong ngành. Chúng tôi cam kết mang đến cho khách hàng những sản phẩm chất lượng cao nhất với giá cả hợp lý.'),
+('about_image', '/public/images/about.jpg'),
+
+-- Brand Names (for marquee)
+('brand_name_1', 'Nike'),
+('brand_name_2', 'Adidas'),
+('brand_name_3', 'Puma'),
+('brand_name_4', 'Converse'),
+('brand_name_5', 'Vans'),
+('brand_name_6', 'New Balance'),
+('brand_link_1', '#'),
+('brand_link_2', '#'),
+('brand_link_3', '#'),
+('brand_link_4', '#'),
+('brand_link_5', '#'),
+('brand_link_6', '#');
 
 -- Table: categories
 CREATE TABLE IF NOT EXISTS `categories` (
@@ -84,6 +122,7 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `name` VARCHAR(100) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
   `phone` VARCHAR(20),
+  `subject` VARCHAR(255),
   `message` TEXT NOT NULL,
   `status` ENUM('unread', 'read', 'replied') DEFAULT 'unread',
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP

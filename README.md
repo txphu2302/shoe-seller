@@ -10,6 +10,22 @@
 
 ### ✅ Already Implemented
 
+#### Admin Features
+- **Settings Management** (`/admin/settings`)
+  - Website configuration (company name, phone, address, email, social media)
+  - Logo upload with validation (2MB max, image formats only)
+  - Real-time preview of current settings
+  - Success/error message handling
+  
+- **Contacts Management** (`/admin/contacts`)
+  - List all customer contacts with pagination (10 items per page)
+  - Filter by status: All, Unread, Read, Replied
+  - View contact details with auto-mark as read
+  - Update contact status (unread → read → replied)
+  - Delete contacts with confirmation
+  - Statistics cards showing unread/read/replied counts
+  - Quick reply via email client integration
+
 #### Core Infrastructure
 - **MVC Architecture**: Custom routing system without PHP frameworks
 - **URL Rewriting**: `.htaccess` configured for clean URLs (e.g., `/users/login` instead of `index.php?url=users/login`)
@@ -23,34 +39,35 @@
 - **`Controller.php`** - Base controller with model() and view() methods for MVC pattern
 - **`Database.php`** - PDO-based database class with prepared statements (SQL injection protection)
 
-#### Controllers (3 implemented)
-- **`HomeController`** - Homepage display
-- **`UsersController`** - User authentication and profile management
+#### Controllers (Nhiệm vụ 1)
+- **`HomeController`** - Homepage display (dữ liệu động từ database)
+- **`UsersController`** - User authentication (login/logout)
   - Login with email/username support
   - Secure password verification (password_verify)
-  - User status checking (ban/active)
   - Session management
   - Role-based redirects
-- **`AdminController`** - Admin dashboard access with permission checking
+- **`AdminController`** - Admin dashboard - NHIỆM VỤ 1
+  - **Settings management** - Quản lý thông tin website (tên công ty, logo, liên hệ, mạng xã hội)
+  - **Contacts management** - Quản lý liên hệ khách hàng (xem, đánh dấu đã đọc/đã phản hồi, xóa)
+  - Dashboard statistics (tổng liên hệ, liên hệ chưa đọc)
+- **`ContactController`** - Public contact page (dữ liệu động từ database + form lưu DB)
 
-#### Views & Frontend
-- **Admin Dashboard** - Srtdash template integration
-  - `admin/dashboard.php` - Main dashboard page
-  - `admin/layouts/header.php` - Admin header with CSS framework (Bootstrap 5)
-  - `admin/layouts/footer.php` - Admin footer
-- **User Authentication Pages**
-  - `users/login.php` - Login form with email/username support
-  - `users/register.php` - User registration
-  - `users/users.php` - User profile page
-- **Public Pages**
-  - `home/index.php` - Homepage
-- **Layouts**
-  - `layouts/header.php` - Public header
-  - `layouts/footer.php` - Public footer
-- **Styling**
-  - `public/css/style.css` - Custom CSS
-  - `public/admin_assets/` - Complete Srtdash admin template with CSS and JS libraries
-  - Bootstrap, FontAwesome, Themify Icons included
+#### Views & Frontend - NHIỆM VỤ 1
+- **Admin Dashboard** - Giao diện quản trị tập trung Nhiệm vụ 1
+  - `admin/dashboard.php` - Dashboard với thống kê liên hệ
+  - `admin/settings.php` - Cài đặt website (logo, tên công ty, thông tin liên hệ)
+  - `admin/contacts.php` - Quản lý liên hệ khách hàng
+  - `admin/contact_detail.php` - Chi tiết liên hệ
+  - `admin/layouts/header.php` - Header admin (đã tinh gọn navbar)
+  - `admin/layouts/footer.php` - Footer admin
+- **User Authentication**
+  - `users/login.php` - Trang đăng nhập admin
+- **Public Pages** - Hiển thị dữ liệu động từ database
+  - `home/index.php` - Trang chủ (dữ liệu động)
+  - `home/contact.php` - Trang liên hệ (dữ liệu động + form)
+- **Layouts** - Tự động load settings từ database
+  - `layouts/header.php` - Header public (tiêu đề, logo động)
+  - `layouts/footer.php` - Footer public (thông tin liên hệ động)
 
 #### Security Features Implemented
 - PDO prepared statements for database queries
@@ -60,52 +77,27 @@
 - User status verification (ban prevention)
 - Input validation on login form
 
-#### Database Tables (9 tables)
-1. `users` - User accounts with roles (admin, member) and status (active, banned)
-2. `products` - Product catalog with categories
-3. `categories` - Product categories
-4. `product_attributes` - Product sizes and stock management
-5. `orders` - Order headers with status tracking
-6. `order_details` - Order line items
-7. `contacts` - Customer contact messages with status (unread, read, replied)
-8. `faqs` - Frequently asked questions
-9. `settings` - Website configuration (logo, phone, address, company name, etc.)
+#### Database Tables (Nhiệm vụ 1)
+1. `users` - Tài khoản admin (đăng nhập quản trị)
+2. `settings` - Cấu hình website (tên công ty, logo, liên hệ, mạng xã hội)
+3. `contacts` - Tin nhắn liên hệ từ khách hàng (với trạng thái unread/read/replied)
 
-### ⏳ To Be Implemented
+### ✅ Nhiệm vụ 1 ĐÃ HOÀN THÀNH
 
-#### Models (Database Layer)
-- Users model with CRUD operations
-- Products model
-- Orders model
-- Contacts model
-- FAQs model
-- Comments/Reviews model
+#### Tính năng đã hiện thực:
+- ✅ Giao diện Trang chủ (dữ liệu động từ database)
+- ✅ Giao diện Trang liên hệ (dữ liệu động + form lưu DB)
+- ✅ Quản lý thông tin website (Settings) - tên công ty, logo, liên hệ, mạng xã hội
+- ✅ Quản lý liên hệ khách hàng (xem, đánh dấu đã đọc/đã phản hồi, xóa)
+- ✅ Admin dashboard tinh gọn (chỉ các chức năng Nhiệm vụ 1)
 
-#### Views & Pages
-- Product listing page with search
-- Product details page
-- News/Blog listing page with search
-- News/Blog detail page
-- Cart and checkout pages
-- Contact form page
-- FAQ display page
-- About page
-- Price list page
-- User profile management
-- Admin management pages for all resources
-
-#### Features
-- Product search and filtering
-- Shopping cart management
-- Order management and checkout
-- Comment/review system
+### ⏳ Các Nhiệm vụ Tiếp theo (Nhiệm vụ 2, 3...)
+- Products, Orders, Categories management
+- Shopping cart và checkout
 - News/Blog management
-- Contact form submission and management
 - FAQ management
-- User profile editing (password, avatar, info)
-- Pagination for listings
-- Image upload functionality
-- Admin dashboard operations (CRUD for all resources)
+- User profile management
+- Comment/Review system
 
 ---
 
@@ -248,7 +240,11 @@ Shoe-Seller/
 │   │   ├── HomeController.php       # Homepage
 │   │   ├── UsersController.php      # Authentication & user management
 │   │   └── AdminController.php      # Admin dashboard
-│   ├── models/              # Model classes (to be created)
+│   ├── models/               # Model classes
+│   │   ├── Users.php        # User authentication and management
+│   │   ├── Settings.php     # Website configuration management
+│   │   ├── Contacts.php     # Contact messages management
+│   │   └── coreModel.php    # Base model with PDO operations
 │   └── views/
 │       ├── home/
 │       │   └── index.php            # Homepage view
@@ -376,6 +372,9 @@ Shoe-Seller/
 ### 🔐 Authenticated Routes
 - **User Dashboard**: `/users/` - User profile (requires login)
 - **Admin Dashboard**: `/admin/` - Admin dashboard (requires admin role)
+- **Admin Settings**: `/admin/settings` - Website configuration (admin only)
+- **Admin Contacts**: `/admin/contacts` - Contact management (admin only)
+- **Admin Contact View**: `/admin/contact/view/{id}` - View contact details (admin only)
 
 ### 🔧 Technical Features Ready to Use
 - Clean URL routing system (no index.php needed)
@@ -607,10 +606,15 @@ For group coordination:
 ✅ Database schema with 9 normalized tables  
 ✅ Complete admin template assets integrated  
 
-### In Development
-🔄 Database models for data operations  
+### ✅ Completed Recently (May 2026)
+✅ Admin Settings Management (company info, logo upload, social media)  
+✅ Admin Contacts Management (CRUD with pagination and status tracking)  
+✅ Dashboard with statistics cards for users and contacts  
+✅ Custom gold theme styling for admin interface  
+
+### 🔄 In Development
 🔄 Product management system  
 🔄 Shopping cart and order processing  
 🔄 Blog/News management  
 🔄 Comment/Review system  
-🔄 Admin CRUD operations
+🔄 Public pages (Home, About, Contact, Products)

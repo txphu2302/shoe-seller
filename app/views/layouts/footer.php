@@ -7,12 +7,10 @@
                         <i class="fa-solid fa-shoe-prints" style="color: var(--primary-color);"></i>
                         Shoe<span style="color: white;">Seller</span>
                     </a>
-                    <p>Thương hiệu giày phong cách luxury streetwear hàng đầu. Chúng tôi mang đến những đôi giày không chỉ là phụ kiện, mà là tuyên ngôn phong cách của bạn.</p>
+                    <p><?= $settings['about_short'] ?? 'Thương hiệu giày phong cách luxury streetwear hàng đầu. Chúng tôi mang đến những đôi giày không chỉ là phụ kiện, mà là tuyên ngôn phong cách của bạn.' ?></p>
                     <div class="social-links">
-                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="<?= $settings['facebook'] ?? '#' ?>" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="<?= $settings['instagram'] ?? '#' ?>" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                     </div>
                 </div>
                 
@@ -39,15 +37,15 @@
                 <div class="footer-col">
                     <h4>Liên hệ</h4>
                     <ul class="footer-links">
-                        <li><i class="fa-solid fa-location-dot" style="color: var(--primary-color); margin-right: 8px;"></i> 123 Đường Số 1, TP.HCM</li>
-                        <li><i class="fa-solid fa-phone" style="color: var(--primary-color); margin-right: 8px;"></i> 1900 1234</li>
-                        <li><i class="fa-solid fa-envelope" style="color: var(--primary-color); margin-right: 8px;"></i> support@shoeseller.vn</li>
+                        <li><i class="fa-solid fa-location-dot" style="color: var(--primary-color); margin-right: 8px;"></i> <?= $settings['address'] ?? '227 Nguyễn Văn Cừ, Phường 4, Quận 5, TP.HCM' ?></li>
+                        <li><i class="fa-solid fa-phone" style="color: var(--primary-color); margin-right: 8px;"></i> <?= $settings['phone'] ?? '1900 1234' ?></li>
+                        <li><i class="fa-solid fa-envelope" style="color: var(--primary-color); margin-right: 8px;"></i> <?= $settings['email'] ?? 'info@shoeseller.com' ?></li>
                     </ul>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2026 ShoeSeller. All rights reserved.</p>
+                <p>&copy; <?= date('Y') ?> <?= $settings['company_name'] ?? 'ShoeSeller' ?>. All rights reserved.</p>
                 <p>Thiết kế bởi Nhóm 3 - Lập trình Web</p>
             </div>
         </div>

@@ -249,6 +249,19 @@
     background-color: #fff;
 }
 
+.contact-kicker {
+    margin-bottom: 14px;
+}
+
+.contact-heading {
+    font-size: 56px;
+    letter-spacing: -2px;
+    line-height: 1.05;
+    margin-bottom: 14px;
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-light);
+}
+
 .contact-form-desc {
     color: var(--text-gray);
     font-size: 15px;
@@ -293,6 +306,11 @@
     text-transform: uppercase;
 }
 
+.form-group label .req {
+    color: #ff4d4f;
+    margin-left: 4px;
+}
+
 .form-group input,
 .form-group textarea {
     width: 100%;
@@ -319,12 +337,26 @@
     min-height: 120px;
 }
 
+.field-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-gray);
+    margin-top: 8px;
+}
+
 .contact-submit {
     align-self: flex-start;
+    border-radius: 999px;
+    box-shadow: 0 18px 40px rgba(251,176,59,0.25);
     gap: 10px;
     padding: 14px 36px;
     font-size: 15px;
     margin-top: 8px;
+}
+
+.contact-submit i {
+    margin-left: 8px;
 }
 
 /* --- Map & Community --- */
