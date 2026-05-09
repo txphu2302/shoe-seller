@@ -2,63 +2,28 @@
     'use strict';
 
     /*================================
-    Preloader
-    ==================================*/
-    initPreloader();
-
-    /*================================
-    Sidebar collapsing
-    ==================================*/
-    initSidebar();
-
-    /*================================
-    Footer resizer
-    ==================================*/
-    initFooterResizer();
-
-    /*================================
-    Sidebar menu (MetisMenuJS)
-    ==================================*/
-    initSidebarMenu();
-
-    /*================================
-    Sticky Header
-    ==================================*/
-    initStickyHeader();
-
-    /*================================
-    Bootstrap popovers
-    ==================================*/
-    initPopovers();
-
-    /*================================
-    Form validation
-    ==================================*/
-    initFormValidation();
-
-    /*================================
-    Login form focus states
-    ==================================*/
-    initFormFocus();
-
-    /*================================
-    Settings panel toggle
-    ==================================*/
-    initSettingsPanel();
-
-    /*================================
-    Testimonial Carousel (Swiper)
-    ==================================*/
-    initTestimonialCarousel();
-
-    /*================================
-    Fullscreen toggle
-    ==================================*/
-    initFullscreen();
-
-    /*================================
     Function definitions
     ==================================*/
+    window.SRTdash = window.SRTdash || {};
+    
+    window.SRTdash.initPlugins = function() {
+        initPreloader();
+        initSidebar();
+        initFooterResizer();
+        initSidebarMenu();
+        initStickyHeader();
+        initPopovers();
+        initFormValidation();
+        initFormFocus();
+        initSettingsPanel();
+        initTestimonialCarousel();
+        initFullscreen();
+        initToast();
+        initSearch();
+    };
+
+    // Initial load
+    window.SRTdash.initPlugins();
 
     function initPreloader() {
         var preloader = document.getElementById('preloader');
@@ -327,7 +292,11 @@
             });
 
             if (results.length === 1) {
-                window.location.href = results[0].href;
+                if (window.SRTdash && window.SRTdash.loadPage) {
+                    window.SRTdash.loadPage(results[0].href);
+                } else {
+                    window.location.href = results[0].href;
+                }
             } else if (results.length > 1) {
                 if (window.SRTdash && window.SRTdash.toast) {
                     window.SRTdash.toast('Found ' + results.length + ' pages matching "' + query + '"', 'info');

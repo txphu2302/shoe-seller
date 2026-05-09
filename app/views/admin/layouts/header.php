@@ -28,6 +28,7 @@
         .badge-gold { background-color: #d4af37; color: #000; }
         .card-icon { font-size: 2.5rem; color: #d4af37; }
     </style>
+    <script>window.BASE_URL = '<?= BASE_URL ?>';</script>
 </head>
 
 <body>
@@ -53,8 +54,11 @@
                             <li class="active">
                                 <a href="<?= BASE_URL ?>/admin" aria-expanded="true"><i class="ti-dashboard"></i><span>Dashboard</span></a>
                             </li>
-                            <li>
+                             <li>
                                 <a href="<?= BASE_URL ?>/homepage" aria-expanded="true"><i class="fa-solid fa-home"></i><span>Quản lý Trang chủ</span></a>
+                            </li>
+                            <li>
+                                <a href="<?= BASE_URL ?>/admin/aboutSettings" aria-expanded="true"><i class="fa-solid fa-info-circle"></i><span>Quản lý Trang Giới thiệu</span></a>
                             </li>
                             <li>
                                 <a href="<?= BASE_URL ?>/admin/contacts" aria-expanded="true"><i class="fa-solid fa-envelope"></i><span>Quản lý Liên hệ</span></a>

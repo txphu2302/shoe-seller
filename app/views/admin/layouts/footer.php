@@ -8,6 +8,8 @@
         <!-- footer area end-->
     </div>
     <!-- page container area end -->
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- bootstrap 5 js -->
     <script src="<?= BASE_URL ?>/public/admin_assets/js/bootstrap.bundle.min.js"></script>
     <script src="<?= BASE_URL ?>/public/admin_assets/js/swiper-bundle.min.js"></script>
@@ -19,6 +21,7 @@
     <script src="<?= BASE_URL ?>/public/admin_assets/js/line-chart.js"></script>
     <!-- all pie chart -->
     <script src="<?= BASE_URL ?>/public/admin_assets/js/pie-chart.js"></script>
+    <script src="<?= BASE_URL ?>/public/admin_assets/js/ajax_nav.js"></script>
     <script src="<?= BASE_URL ?>/public/admin_assets/js/scripts.js"></script>
 </body>
 

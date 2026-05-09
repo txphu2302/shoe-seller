@@ -100,6 +100,109 @@ class AdminController extends Controller
         $this->view('admin/layouts/footer');
     }
 
+    // About Us Settings Management
+    public function aboutSettings()
+    {
+        $this->checkAdminAuth();
+
+        $data = [
+            'errors' => [],
+            'success' => '',
+            'pageTitle' => 'Quản lý trang Giới thiệu'
+        ];
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Text fields to update
+            $allowedSettings = [
+                'about_hero_title', 'about_hero_subtitle', 
+                'about_main_title', 'about_main_subtitle', 'about_description_1', 'about_description_2',
+                'about_stat_1_num', 'about_stat_1_label',
+                'about_stat_2_num', 'about_stat_2_label',
+                'about_stat_3_num', 'about_stat_3_label',
+                'about_core_values_title', 'about_core_values_subtitle',
+                'about_value_1_title', 'about_value_1_desc',
+                'about_value_2_title', 'about_value_2_desc',
+                'about_value_3_title', 'about_value_3_desc',
+                'about_value_4_title', 'about_value_4_desc'
+            ];
+            
+            foreach ($allowedSettings as $key) {
+                if (isset($_POST[$key])) {
+                    $value = trim($_POST[$key]);
+                    if ($this->settingsModel->settingExists($key)) {
+                        $this->settingsModel->updateSetting($key, $value);
+                    } else {
+                        $this->settingsModel->createSetting($key, $value);
+                    }
+                }
+            }
+
+            // Handle image uploads
+            $imageFields = [
+                'about_hero_image_file' => 'about_hero_image',
+                'about_main_image_file' => 'about_main_image'
+            ];
+
+            foreach ($imageFields as $fileKey => $settingKey) {
+                if (isset($_FILES[$fileKey]) && $_FILES[$fileKey]['error'] === UPLOAD_ERR_OK) {
+                    $uploadResult = $this->handleAboutImageUpload($_FILES[$fileKey], $fileKey);
+                    if ($uploadResult['success']) {
+                        if ($this->settingsModel->settingExists($settingKey)) {
+                            $this->settingsModel->updateSetting($settingKey, $uploadResult['filename']);
+                        } else {
+                            $this->settingsModel->createSetting($settingKey, $uploadResult['filename']);
+                        }
+                    } else {
+                        $data['errors'][] = $uploadResult['message'];
+                    }
+                }
+            }
+
+            if (empty($data['errors'])) {
+                $data['success'] = 'Cài đặt trang Giới thiệu đã được cập nhật!';
+            }
+        }
+
+        // Get current settings
+        $settings = $this->settingsModel->getAllSettings();
+        $data['settings'] = [];
+        foreach ($settings as $setting) {
+            $data['settings'][$setting['key_name']] = $setting['key_value'];
+        }
+
+        $this->view('admin/layouts/header', $data);
+        $this->view('admin/about_settings', $data);
+        $this->view('admin/layouts/footer');
+    }
+
+    protected function handleAboutImageUpload($file, $prefix)
+    {
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        $maxSize = 5 * 1024 * 1024; // 5MB
+
+        if (!in_array($file['type'], $allowedTypes)) {
+            return ['success' => false, 'message' => 'Chỉ chấp nhận file ảnh (JPEG, PNG, GIF, WEBP)'];
+        }
+
+        if ($file['size'] > $maxSize) {
+            return ['success' => false, 'message' => 'Kích thước file không được vượt quá 5MB'];
+        }
+
+        $uploadDir = PUBLIC_PATH . '/uploads/about/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+
+        $filename = $prefix . '_' . time() . '_' . basename($file['name']);
+        $targetPath = $uploadDir . $filename;
+
+        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+            return ['success' => true, 'filename' => 'public/uploads/about/' . $filename];
+        }
+
+        return ['success' => false, 'message' => 'Không thể upload file. Vui lòng thử lại.'];
+    }
+
     protected function handleLogoUpload($file)
     {
         $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];

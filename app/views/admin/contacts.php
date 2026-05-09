@@ -121,12 +121,12 @@
                                         </td>
                                         <td>
                                             <div class="btn-group">
-                                                <a href="<?= BASE_URL ?>/admin/contact/view/<?= $contact->id ?>" class="btn btn-sm btn-outline-primary" title="Xem chi tiết">
+                                                <a href="<?= BASE_URL ?>/admin/viewContact/<?= $contact->id ?>" class="btn btn-sm btn-outline-primary" title="Xem chi tiết">
                                                     <i class="fa-solid fa-eye"></i>
                                                 </a>
                                                 
                                                 <?php if ($contact->status !== 'replied'): ?>
-                                                    <form action="<?= BASE_URL ?>/admin/contact/update/<?= $contact->id ?>" method="post" class="d-inline">
+                                                    <form action="<?= BASE_URL ?>/admin/updateContactStatus/<?= $contact->id ?>" method="post" class="d-inline">
                                                         <input type="hidden" name="status" value="replied">
                                                         <button type="submit" class="btn btn-sm btn-outline-success" title="Đánh dấu đã phản hồi">
                                                             <i class="fa-solid fa-check"></i>
@@ -134,7 +134,7 @@
                                                     </form>
                                                 <?php endif; ?>
                                                 
-                                                <form action="<?= BASE_URL ?>/admin/contact/delete/<?= $contact->id ?>" method="post" class="d-inline" onsubmit="return confirm('Bạn có chắc muốn xóa liên hệ này?')">
+                                                <form action="<?= BASE_URL ?>/admin/deleteContact/<?= $contact->id ?>" method="post" class="d-inline" onsubmit="return confirm('Bạn có chắc muốn xóa liên hệ này?')">
                                                     <button type="submit" class="btn btn-sm btn-outline-danger" title="Xóa">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>

@@ -14,6 +14,15 @@ class Controller
     // Hàm gọi view
     public function view($view, $data = [])
     {
+        // Kiểm tra AJAX request
+        $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+
+        // Nếu là AJAX, bỏ qua các view layout thông thường để chỉ trả về nội dung chính
+        // Chỉnh sửa: Chỉ bỏ qua nếu view nằm trong thư mục layouts
+        if ($isAjax && strpos($view, 'layouts/') !== false) {
+            return;
+        }
+
         // Tự động load settings nếu chưa có
         if (!isset($data['settings'])) {
             $data['settings'] = $this->getSettings();
