@@ -4,11 +4,13 @@ class AdminController extends Controller
 {
     protected $settingsModel;
     protected $contactsModel;
+    protected $productModel;
 
     public function __construct()
     {
         $this->settingsModel = $this->model('Settings');
         $this->contactsModel = $this->model('Contacts');
+        $this->productModel = $this->model('Product');
     }
 
     protected function checkAdminAuth()
@@ -61,7 +63,7 @@ class AdminController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Update settings
             $allowedSettings = ['company_name', 'phone', 'address', 'about_short', 'logo', 'email', 'facebook', 'instagram'];
-            
+
             foreach ($allowedSettings as $key) {
                 if (isset($_POST[$key])) {
                     $value = trim($_POST[$key]);
@@ -114,18 +116,30 @@ class AdminController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Text fields to update
             $allowedSettings = [
-                'about_hero_title', 'about_hero_subtitle', 
-                'about_main_title', 'about_main_subtitle', 'about_description_1', 'about_description_2',
-                'about_stat_1_num', 'about_stat_1_label',
-                'about_stat_2_num', 'about_stat_2_label',
-                'about_stat_3_num', 'about_stat_3_label',
-                'about_core_values_title', 'about_core_values_subtitle',
-                'about_value_1_title', 'about_value_1_desc',
-                'about_value_2_title', 'about_value_2_desc',
-                'about_value_3_title', 'about_value_3_desc',
-                'about_value_4_title', 'about_value_4_desc'
+                'about_hero_title',
+                'about_hero_subtitle',
+                'about_main_title',
+                'about_main_subtitle',
+                'about_description_1',
+                'about_description_2',
+                'about_stat_1_num',
+                'about_stat_1_label',
+                'about_stat_2_num',
+                'about_stat_2_label',
+                'about_stat_3_num',
+                'about_stat_3_label',
+                'about_core_values_title',
+                'about_core_values_subtitle',
+                'about_value_1_title',
+                'about_value_1_desc',
+                'about_value_2_title',
+                'about_value_2_desc',
+                'about_value_3_title',
+                'about_value_3_desc',
+                'about_value_4_title',
+                'about_value_4_desc'
             ];
-            
+
             foreach ($allowedSettings as $key) {
                 if (isset($_POST[$key])) {
                     $value = trim($_POST[$key]);
@@ -241,7 +255,7 @@ class AdminController extends Controller
         $offset = ($page - 1) * $perPage;
 
         $status = isset($_GET['status']) ? $_GET['status'] : null;
-        
+
         if ($status && in_array($status, ['unread', 'read', 'replied'])) {
             $contacts = $this->contactsModel->getContactsByStatus($status, $perPage, $offset);
             $totalContacts = $this->contactsModel->countContacts($status);
@@ -303,7 +317,7 @@ class AdminController extends Controller
         $this->checkAdminAuth();
 
         $contact = $this->contactsModel->getContactById($id);
-        
+
         if (!$contact) {
             header('Location: ' . BASE_URL . '/admin/contacts');
             exit;
@@ -323,5 +337,151 @@ class AdminController extends Controller
         $this->view('admin/layouts/header', $data);
         $this->view('admin/contact_detail', $data);
         $this->view('admin/layouts/footer');
+    }
+
+    public function products()
+    {
+        $this->checkAdminAuth();
+
+        $alert = ['type' => '', 'message' => ''];
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $action = trim((string)($_POST['action'] ?? ''));
+
+            if ($action === 'delete') {
+                $productId = (int)($_POST['product_id'] ?? 0);
+                if ($productId > 0 && $this->productModel->deleteProduct($productId)) {
+                    $alert = ['type' => 'success', 'message' => 'Đã xóa sản phẩm thành công.'];
+                } else {
+                    $alert = ['type' => 'danger', 'message' => 'Không thể xóa sản phẩm.'];
+                }
+            } elseif ($action === 'create' || $action === 'update') {
+                $productId = (int)($_POST['product_id'] ?? 0);
+                $name = trim((string)($_POST['name'] ?? ''));
+                $price = trim((string)($_POST['price'] ?? '0'));
+                $description = trim((string)($_POST['description'] ?? ''));
+                $categoryId = (int)($_POST['category_id'] ?? 0);
+
+                if ($name === '' || $categoryId <= 0 || !is_numeric($price) || (float)$price < 0) {
+                    $alert = ['type' => 'danger', 'message' => 'Vui lòng nhập đúng tên, danh mục và giá sản phẩm.'];
+                } else {
+                    $existingProduct = $productId > 0 ? $this->productModel->getProductById($productId) : null;
+                    $imagePath = (string)($existingProduct['image'] ?? '');
+
+                    if (isset($_FILES['image']) && $_FILES['image']['error'] !== UPLOAD_ERR_NO_FILE) {
+                        $uploadResult = $this->handleProductImageUpload($_FILES['image']);
+                        if (!$uploadResult['success']) {
+                            $alert = ['type' => 'danger', 'message' => $uploadResult['message']];
+                        } else {
+                            $imagePath = $uploadResult['filename'];
+                        }
+                    }
+
+                    if ($alert['message'] === '') {
+                        $payload = [
+                            'category_id' => $categoryId,
+                            'name' => $name,
+                            'description' => $description,
+                            'price' => (float)$price,
+                            'image' => $imagePath,
+                        ];
+
+                        if ($action === 'create') {
+                            if ($this->productModel->createProduct($payload)) {
+                                $alert = ['type' => 'success', 'message' => 'Đã thêm sản phẩm mới thành công.'];
+                            } else {
+                                $alert = ['type' => 'danger', 'message' => 'Không thể thêm sản phẩm.'];
+                            }
+                        } else {
+                            if ($productId > 0 && $this->productModel->updateProduct($productId, $payload)) {
+                                $alert = ['type' => 'success', 'message' => 'Đã cập nhật sản phẩm thành công.'];
+                            } else {
+                                $alert = ['type' => 'danger', 'message' => 'Không thể cập nhật sản phẩm.'];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        $filters = [
+            'product_id' => trim((string)($_GET['product_id'] ?? '')),
+            'name' => trim((string)($_GET['name'] ?? '')),
+            'category_id' => trim((string)($_GET['category_id'] ?? '')),
+        ];
+
+        $page = max(1, (int)($_GET['page'] ?? 1));
+        $perPage = (int)($_GET['per_page'] ?? 25);
+        if (!in_array($perPage, [10, 25, 50, 100], true)) {
+            $perPage = 25;
+        }
+
+        $totalProducts = $this->productModel->countAdminProducts($filters);
+        $totalPages = max(1, (int)ceil($totalProducts / $perPage));
+        if ($page > $totalPages) {
+            $page = $totalPages;
+        }
+
+        $offset = ($page - 1) * $perPage;
+        $products = $this->productModel->getAdminProducts($filters, $perPage, $offset);
+        $categories = $this->productModel->getCategories();
+
+        $editId = (int)($_GET['edit'] ?? 0);
+        $editProduct = $editId > 0 ? $this->productModel->getProductById($editId) : null;
+
+        $data = [
+            'pageTitle' => 'Quản lý trang sản phẩm',
+            'products' => $products,
+            'categories' => $categories,
+            'filters' => $filters,
+            'perPage' => $perPage,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+            'totalProducts' => $totalProducts,
+            'editProduct' => $editProduct,
+            'mode' => trim((string)($_GET['mode'] ?? '')),
+            'alert' => $alert,
+        ];
+
+        $this->view('admin/layouts/header', $data);
+        $this->view('admin/product', $data);
+        $this->view('admin/layouts/footer');
+    }
+
+    protected function handleProductImageUpload($file)
+    {
+        if (!isset($file['error']) || $file['error'] !== UPLOAD_ERR_OK) {
+            return ['success' => false, 'message' => 'Upload ảnh sản phẩm thất bại.'];
+        }
+
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/avif'];
+        $maxSize = 5 * 1024 * 1024;
+
+        if (!in_array((string)$file['type'], $allowedTypes, true)) {
+            return ['success' => false, 'message' => 'Chỉ chấp nhận ảnh JPG, PNG, GIF, WEBP, AVIF.'];
+        }
+
+        if ((int)$file['size'] > $maxSize) {
+            return ['success' => false, 'message' => 'Kích thước ảnh không được vượt quá 5MB.'];
+        }
+
+        $uploadDir = PUBLIC_PATH . '/uploads/product/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+
+        $ext = strtolower(pathinfo((string)$file['name'], PATHINFO_EXTENSION));
+        if ($ext === '') {
+            $ext = 'jpg';
+        }
+
+        $filename = 'product_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+        $targetPath = $uploadDir . $filename;
+
+        if (!move_uploaded_file((string)$file['tmp_name'], $targetPath)) {
+            return ['success' => false, 'message' => 'Không thể lưu ảnh vào thư mục uploads.'];
+        }
+
+        return ['success' => true, 'filename' => '/public/uploads/product/' . $filename];
     }
 }

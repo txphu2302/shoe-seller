@@ -12,6 +12,10 @@
     color: var(--text-dark);
 }
 
+.header.header-product {
+    background-color: #000;
+}
+
 .header .container {
     display: flex;
     justify-content: space-between;

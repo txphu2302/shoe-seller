@@ -22,13 +22,34 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/admin_assets/css/responsive.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/public/admin_assets/css/custom.css">
     <style>
-        .metismenu li a.active { color: #d4af37 !important; }
-        .btn-gold { background-color: #d4af37; color: #000; border: none; }
-        .btn-gold:hover { background-color: #b8962e; color: #000; }
-        .badge-gold { background-color: #d4af37; color: #000; }
-        .card-icon { font-size: 2.5rem; color: #d4af37; }
+        .metismenu li a.active {
+            color: #d4af37 !important;
+        }
+
+        .btn-gold {
+            background-color: #d4af37;
+            color: #000;
+            border: none;
+        }
+
+        .btn-gold:hover {
+            background-color: #b8962e;
+            color: #000;
+        }
+
+        .badge-gold {
+            background-color: #d4af37;
+            color: #000;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: #d4af37;
+        }
     </style>
-    <script>window.BASE_URL = '<?= BASE_URL ?>';</script>
+    <script>
+        window.BASE_URL = '<?= BASE_URL ?>';
+    </script>
 </head>
 
 <body>
@@ -44,7 +65,9 @@
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
-                    <a href="<?= BASE_URL ?>/admin"><h4 class="mb-0" style="color: #d4af37; font-weight: 700;"><i class="fa-solid fa-shoe-prints"></i> ShoeSeller</h4></a>
+                    <a href="<?= BASE_URL ?>/admin">
+                        <h4 class="mb-0" style="color: #d4af37; font-weight: 700;"><i class="fa-solid fa-shoe-prints"></i> ShoeSeller</h4>
+                    </a>
                 </div>
             </div>
             <div class="main-menu">
@@ -54,8 +77,11 @@
                             <li class="active">
                                 <a href="<?= BASE_URL ?>/admin" aria-expanded="true"><i class="ti-dashboard"></i><span>Dashboard</span></a>
                             </li>
-                             <li>
+                            <li>
                                 <a href="<?= BASE_URL ?>/homepage" aria-expanded="true"><i class="fa-solid fa-home"></i><span>Quản lý Trang chủ</span></a>
+                            </li>
+                            <li>
+                                <a href="<?= BASE_URL ?>/admin/products" aria-expanded="true"><i class="fa-solid fa-box-open"></i><span>Quản lý trang sản phẩm</span></a>
                             </li>
                             <li>
                                 <a href="<?= BASE_URL ?>/admin/aboutSettings" aria-expanded="true"><i class="fa-solid fa-info-circle"></i><span>Quản lý Trang Giới thiệu</span></a>

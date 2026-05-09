@@ -185,10 +185,22 @@ $(document).ready(function() {
         if (actionUrl.indexOf('http') === 0 && actionUrl.indexOf(window.BASE_URL) !== 0) return;
         
         e.preventDefault();
+        const method = (($form.attr('method') || 'POST') + '').toUpperCase();
+
+        // GET forms should navigate with query string so server receives filter params.
+        if (method === 'GET') {
+            const params = new URLSearchParams(new FormData(this));
+            const base = actionUrl.split('#')[0];
+            const queryString = params.toString();
+            const joiner = base.indexOf('?') === -1 ? '?' : '&';
+            const finalUrl = queryString ? (base + joiner + queryString) : base;
+            loadPage(finalUrl);
+            return;
+        }
+
         showLoader();
 
         const formData = new FormData(this);
-        const method = $form.attr('method') || 'POST';
 
         $.ajax({
             url: actionUrl,
