@@ -5,7 +5,7 @@ class Product extends CoreModel
     public function getCategories()
     {
         $sql = "
-            SELECT id, name
+            SELECT DISTINCT id, name
             FROM categories
             ORDER BY name ASC
         ";
