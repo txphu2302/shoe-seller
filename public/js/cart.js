@@ -126,9 +126,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateCartBadge(count) {
-        const badges = document.querySelectorAll('.cart-badge'); // Assuming there's a cart-badge class in header
+        const badges = document.querySelectorAll('.cart-badge');
         badges.forEach(badge => {
             badge.textContent = count;
+            // Hiển thị badge nếu count > 0, ẩn nếu = 0
+            badge.style.display = (count > 0) ? 'flex' : 'none';
             badge.classList.add('pulse');
             setTimeout(() => badge.classList.remove('pulse'), 500);
         });

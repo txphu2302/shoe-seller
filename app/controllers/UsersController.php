@@ -57,6 +57,8 @@ class UsersController extends Controller
             ];
 
             $_SESSION['success_message'] = 'Đăng nhập thành công.';
+            // Xóa error_message cũ (nếu có) để không hiển thị ở trang cart
+            unset($_SESSION['error_message']);
             
             // Handle redirect
             $redirect = $_POST['redirect'] ?? '';

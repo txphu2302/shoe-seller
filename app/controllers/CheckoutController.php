@@ -9,7 +9,7 @@ class CheckoutController extends Controller
         // Require login for checkout
         if (!isset($_SESSION['user'])) {
             $_SESSION['error_message'] = 'Vui lòng đăng nhập để tiến hành thanh toán.';
-            header('Location: ' . BASE_URL . '/users/login');
+            header('Location: ' . BASE_URL . '/users/login?redirect=' . urlencode(BASE_URL . '/cart'));
             exit;
         }
 

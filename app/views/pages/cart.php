@@ -13,9 +13,16 @@
         <?php endif; ?>
 
         <?php if (isset($_SESSION['error_message'])): ?>
+            <?php 
+            // Không hiển thị thông báo "đăng nhập" nếu user đã đăng nhập
+            $isLoginMessage = strpos($_SESSION['error_message'], 'đăng nhập') !== false || 
+                              strpos($_SESSION['error_message'], 'Đăng nhập') !== false;
+            if (!($isLoginMessage && isset($_SESSION['user']))): 
+            ?>
             <div class="alert alert-danger alert-custom">
                 <i class="fa-solid fa-exclamation-circle"></i> <?= $_SESSION['error_message'] ?>
             </div>
+            <?php endif; ?>
             <?php unset($_SESSION['error_message']); ?>
         <?php endif; ?>
 
