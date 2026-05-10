@@ -176,7 +176,7 @@ class UsersController extends Controller
             exit;
         }
 
-        header('Location: ' . BASE_URL . '/users');
+        header('Location: ' . BASE_URL . '/');
         exit;
     }
 }
