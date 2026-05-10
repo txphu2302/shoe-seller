@@ -12,22 +12,41 @@ class ProductController extends Controller
     {
         $selectedCategory = isset($_GET['category']) ? trim((string)$_GET['category']) : '';
         $selectedCategoryId = ctype_digit($selectedCategory) ? (int)$selectedCategory : null;
+        $searchKeyword = isset($_GET['search']) ? trim((string)$_GET['search']) : '';
         $pageParam = isset($_GET['page']) ? trim((string)$_GET['page']) : '1';
         $currentPage = ctype_digit($pageParam) ? max(1, (int)$pageParam) : 1;
         $perPage = 6;
 
         $categories = $this->productModel ? $this->productModel->getCategories() : [];
-        $totalProducts = $this->productModel ? $this->productModel->countProductsByCategory($selectedCategoryId) : 0;
-        $totalPages = max(1, (int)ceil($totalProducts / $perPage));
 
-        if ($currentPage > $totalPages) {
-            $currentPage = $totalPages;
+        // If search keyword provided, use search methods
+        if (!empty($searchKeyword)) {
+            $totalProducts = $this->productModel 
+                ? $this->productModel->countProductsBySearch($searchKeyword, $selectedCategoryId) 
+                : 0;
+            $totalPages = max(1, (int)ceil($totalProducts / $perPage));
+
+            if ($currentPage > $totalPages) {
+                $currentPage = $totalPages;
+            }
+
+            $offset = ($currentPage - 1) * $perPage;
+            $products = $this->productModel
+                ? $this->productModel->searchProducts($searchKeyword, $selectedCategoryId, $perPage, $offset)
+                : [];
+        } else {
+            $totalProducts = $this->productModel ? $this->productModel->countProductsByCategory($selectedCategoryId) : 0;
+            $totalPages = max(1, (int)ceil($totalProducts / $perPage));
+
+            if ($currentPage > $totalPages) {
+                $currentPage = $totalPages;
+            }
+
+            $offset = ($currentPage - 1) * $perPage;
+            $products = $this->productModel
+                ? $this->productModel->getProductsByCategory($selectedCategoryId, $perPage, $offset)
+                : [];
         }
-
-        $offset = ($currentPage - 1) * $perPage;
-        $products = $this->productModel
-            ? $this->productModel->getProductsByCategory($selectedCategoryId, $perPage, $offset)
-            : [];
 
         $data = [
             'title' => 'Sản phẩm',
@@ -35,6 +54,7 @@ class ProductController extends Controller
             'categories' => $categories,
             'products' => $products,
             'selected_category' => $selectedCategoryId,
+            'search_keyword' => $searchKeyword,
             'pagination' => [
                 'current_page' => $currentPage,
                 'per_page' => $perPage,

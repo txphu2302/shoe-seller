@@ -84,6 +84,9 @@
                                 <a href="<?= BASE_URL ?>/admin/products" aria-expanded="true"><i class="fa-solid fa-box-open"></i><span>Quản lý trang sản phẩm</span></a>
                             </li>
                             <li>
+                                <a href="<?= BASE_URL ?>/admin/orders" aria-expanded="true"><i class="fa-solid fa-box text-warning"></i><span>Quản lý Đơn hàng</span></a>
+                            </li>
+                            <li>
                                 <a href="<?= BASE_URL ?>/admin/aboutSettings" aria-expanded="true"><i class="fa-solid fa-info-circle"></i><span>Quản lý Trang Giới thiệu</span></a>
                             </li>
                             <li>

@@ -26,6 +26,8 @@
                                         $statusText = [
                                             'pending' => 'Chờ xử lý',
                                             'processing' => 'Đang xử lý',
+                                            'shipped' => 'Đang giao',
+                                            'delivered' => 'Đã giao',
                                             'completed' => 'Đã hoàn thành',
                                             'cancelled' => 'Đã hủy'
                                         ];

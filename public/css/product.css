@@ -48,8 +48,66 @@
 
 .filter-chip.is-active {
     background: #111;
-    color: #fff;
-    border-color: #111;
+}
+
+/* Search Section */
+.search-section {
+    margin-bottom: 30px;
+}
+
+.search-form .input-group {
+    display: flex;
+    gap: 8px;
+    max-width: 600px;
+}
+
+.search-form .form-control {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.2s ease;
+}
+
+.search-form .form-control:focus {
+    outline: none;
+    border-color: #b68a58;
+}
+
+.search-form .btn {
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.search-form .btn-primary {
+    background: #b68a58;
+    color: white;
+    border: none;
+}
+
+.search-form .btn-primary:hover {
+    background: #9a7549;
+}
+
+.search-form .btn-outline-secondary {
+    background: transparent;
+    color: #666;
+    border: 2px solid #e5e7eb;
+    padding: 12px 14px;
+}
+
+.search-form .btn-outline-secondary:hover {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+.search-results-info {
+    color: #666;
 }
 
 .product-grid-page {

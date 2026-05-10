@@ -21,7 +21,7 @@ $heroImgSrc = !empty($heroImage) ? (BASE_URL . $heroImage) : '';
 
 function format_vnd($value)
 {
-    return number_format((float)$value, 0, ',', '.') . '₫';
+    return '$' . number_format((float)$value, 2);
 }
 ?>
 

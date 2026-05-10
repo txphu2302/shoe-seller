@@ -5,6 +5,7 @@ class AdminController extends Controller
     protected $settingsModel;
     protected $contactsModel;
     protected $productModel;
+    protected $orderModel;
 
     public function __construct()
     {
@@ -12,6 +13,7 @@ class AdminController extends Controller
         $this->contactsModel = $this->model('Contacts');
         $this->productModel = $this->model('Product');
         $this->usersModel = $this->model('Users');
+        $this->orderModel = $this->model('Order');
     }
 
     protected function checkAdminAuth()
@@ -547,6 +549,119 @@ class AdminController extends Controller
         }
 
         header('Location: ' . BASE_URL . '/admin/users');
+        exit;
+    }
+
+    // Order Management
+    public function orders()
+    {
+        $this->checkAdminAuth();
+
+        // Handle delete action
+        if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
+            $orderId = (int)$_GET['delete'];
+            if ($this->orderModel->deleteOrder($orderId)) {
+                $_SESSION['success_message'] = 'Đơn hàng đã được xóa thành công!';
+            } else {
+                $_SESSION['error_message'] = 'Không thể xóa đơn hàng!';
+            }
+            header('Location: ' . BASE_URL . '/admin/orders');
+            exit;
+        }
+
+        // Handle view detail
+        if (isset($_GET['view']) && is_numeric($_GET['view'])) {
+            return $this->orderDetail((int)$_GET['view']);
+        }
+
+        // Pagination
+        $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+        $perPage = isset($_GET['per_page']) ? max(1, (int)$_GET['per_page']) : 25;
+        $offset = ($page - 1) * $perPage;
+
+        // Filters
+        $filters = [
+            'status' => $_GET['status'] ?? '',
+            'order_id' => $_GET['order_id'] ?? '',
+            'user_name' => $_GET['user_name'] ?? ''
+        ];
+
+        // Get orders
+        $totalOrders = $this->orderModel->countAllOrders($filters);
+        $orders = $this->orderModel->getAllOrders($perPage, $offset, $filters);
+
+        // Calculate total pages
+        $totalPages = (int)ceil($totalOrders / $perPage);
+
+        $data = [
+            'orders' => $orders,
+            'filters' => $filters,
+            'currentPage' => $page,
+            'perPage' => $perPage,
+            'totalPages' => $totalPages,
+            'offset' => $offset,
+            'totalOrders' => $totalOrders,
+            'pageTitle' => 'Quản lý Đơn hàng'
+        ];
+
+        $this->view('admin/layouts/header', $data);
+        $this->view('admin/orders', $data);
+        $this->view('admin/layouts/footer');
+    }
+
+    public function orderDetail($orderId = null)
+    {
+        $this->checkAdminAuth();
+
+        if (!$orderId) {
+            header('Location: ' . BASE_URL . '/admin/orders');
+            exit;
+        }
+
+        $order = $this->orderModel->getOrderById($orderId);
+        if (!$order) {
+            $_SESSION['error_message'] = 'Đơn hàng không tồn tại!';
+            header('Location: ' . BASE_URL . '/admin/orders');
+            exit;
+        }
+
+        $orderItems = $this->orderModel->getOrderDetails($orderId);
+
+        // Handle status update
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status'])) {
+            $newStatus = $_POST['status'];
+            if ($this->orderModel->updateOrderStatus($orderId, $newStatus)) {
+                $_SESSION['success_message'] = 'Cập nhật trạng thái đơn hàng thành công!';
+                $order['status'] = $newStatus;
+            } else {
+                $_SESSION['error_message'] = 'Cập nhật trạng thái thất bại!';
+            }
+        }
+
+        $data = [
+            'order' => $order,
+            'orderItems' => $orderItems,
+            'pageTitle' => 'Chi tiết Đơn hàng #' . $orderId
+        ];
+
+        $this->view('admin/layouts/header', $data);
+        $this->view('admin/order_detail', $data);
+        $this->view('admin/layouts/footer');
+    }
+
+    public function deleteOrder($orderId = null)
+    {
+        $this->checkAdminAuth();
+
+        if ($orderId && is_numeric($orderId)) {
+            if ($this->orderModel->deleteOrder($orderId)) {
+                $_SESSION['success_message'] = 'Đơn hàng đã được xóa thành công!';
+            } else {
+                $_SESSION['error_message'] = 'Không thể xóa đơn hàng!';
+            }
+        }
+
+        header('Location: ' . BASE_URL . '/admin/orders');
         exit;
     }
 }

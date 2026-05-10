@@ -266,4 +266,75 @@ class Product extends CoreModel
 
         return 'WHERE (' . implode(' OR ', $clauses) . ')';
     }
+
+    // Public search methods for frontend
+    public function searchProducts($keyword, $categoryId = null, $limit = null, $offset = 0)
+    {
+        $params = [];
+        $where = 'WHERE (p.name LIKE :keyword OR p.description LIKE :keyword)';
+        $params[':keyword'] = '%' . trim((string)$keyword) . '%';
+
+        if ($categoryId !== null && $categoryId !== '' && ctype_digit((string)$categoryId)) {
+            $where .= ' AND p.category_id = :category_id';
+            $params[':category_id'] = (int)$categoryId;
+        }
+
+        $limitClause = '';
+        if ($limit !== null) {
+            $safeLimit = max(1, (int)$limit);
+            $safeOffset = max(0, (int)$offset);
+            $limitClause = " LIMIT {$safeOffset}, {$safeLimit}";
+        }
+
+        $sql = "
+            SELECT p.id, p.name, p.description, p.price, p.image, p.created_at,
+                   c.id AS category_id, c.name AS category_name
+            FROM products p
+            JOIN categories c ON c.id = p.category_id
+            {$where}
+            ORDER BY p.created_at DESC, p.id DESC
+            {$limitClause}
+        ";
+
+        $this->query($sql);
+        foreach ($params as $key => $value) {
+            if ($key === ':category_id') {
+                $this->bind($key, $value, PDO::PARAM_INT);
+            } else {
+                $this->bind($key, $value);
+            }
+        }
+        $this->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function countProductsBySearch($keyword, $categoryId = null)
+    {
+        $params = [];
+        $where = 'WHERE (p.name LIKE :keyword OR p.description LIKE :keyword)';
+        $params[':keyword'] = '%' . trim((string)$keyword) . '%';
+
+        if ($categoryId !== null && $categoryId !== '' && ctype_digit((string)$categoryId)) {
+            $where .= ' AND p.category_id = :category_id';
+            $params[':category_id'] = (int)$categoryId;
+        }
+
+        $sql = "
+            SELECT COUNT(*) AS total
+            FROM products p
+            {$where}
+        ";
+
+        $this->query($sql);
+        foreach ($params as $key => $value) {
+            if ($key === ':category_id') {
+                $this->bind($key, $value, PDO::PARAM_INT);
+            } else {
+                $this->bind($key, $value);
+            }
+        }
+        $this->execute();
+        $row = $this->stmt->fetch(PDO::FETCH_ASSOC);
+        return (int)($row['total'] ?? 0);
+    }
 }
