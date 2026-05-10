@@ -57,8 +57,25 @@ class UsersController extends Controller
             ];
 
             $_SESSION['success_message'] = 'Đăng nhập thành công.';
+            
+            // Handle redirect
+            $redirect = $_POST['redirect'] ?? '';
+            if (!empty($redirect) && strpos($redirect, BASE_URL) !== false) {
+                // Ensure redirect is safe (starts with BASE_URL)
+                header('Location: ' . $redirect);
+                exit;
+            } else if (!empty($redirect) && strpos($redirect, '/') === 0) {
+                // Handle absolute path starting with /
+                header('Location: ' . $redirect);
+                exit;
+            }
+
             $this->redirectByRole($user->role);
         }
+
+        // Pass redirect URL from GET to View
+        $data['redirect'] = $_GET['redirect'] ?? '';
+
 
         $this->view('users/login', $data);
     }

@@ -11,6 +11,7 @@ class AdminController extends Controller
         $this->settingsModel = $this->model('Settings');
         $this->contactsModel = $this->model('Contacts');
         $this->productModel = $this->model('Product');
+        $this->usersModel = $this->model('Users');
     }
 
     protected function checkAdminAuth()
@@ -483,5 +484,69 @@ class AdminController extends Controller
         }
 
         return ['success' => true, 'filename' => '/public/uploads/product/' . $filename];
+    }
+    // User Management Methods
+    public function users()
+    {
+        $this->checkAdminAuth();
+
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $perPage = 10;
+        $offset = ($page - 1) * $perPage;
+
+        $users = $this->usersModel->getAllUsers($perPage, $offset);
+        $totalUsers = $this->usersModel->countUsers();
+        $totalPages = ceil($totalUsers / $perPage);
+
+        $data = [
+            'users' => $users,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+            'totalUsers' => $totalUsers,
+            'pageTitle' => 'Quản lý Thành viên'
+        ];
+
+        $this->view('admin/layouts/header', $data);
+        $this->view('admin/users', $data);
+        $this->view('admin/layouts/footer');
+    }
+
+    public function updateUserStatus($id)
+    {
+        $this->checkAdminAuth();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $status = $_POST['status'] ?? '';
+            if (in_array($status, ['active', 'locked'])) {
+                // Prevent locking the current admin
+                if ($id == $_SESSION['user']['id']) {
+                    $_SESSION['error_message'] = 'Bạn không thể tự khóa tài khoản của mình!';
+                } else {
+                    $this->usersModel->updateStatus($id, $status);
+                    $_SESSION['success_message'] = 'Cập nhật trạng thái thành công!';
+                }
+            }
+        }
+
+        header('Location: ' . BASE_URL . '/admin/users');
+        exit;
+    }
+
+    public function deleteUser($id)
+    {
+        $this->checkAdminAuth();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Prevent deleting the current admin
+            if ($id == $_SESSION['user']['id']) {
+                $_SESSION['error_message'] = 'Bạn không thể tự xóa tài khoản của mình!';
+            } else {
+                $this->usersModel->deleteUser($id);
+                $_SESSION['success_message'] = 'Tài khoản đã được xóa thành công!';
+            }
+        }
+
+        header('Location: ' . BASE_URL . '/admin/users');
+        exit;
     }
 }

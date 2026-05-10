@@ -58,6 +58,17 @@ $(document).ready(function() {
                         // Update document title if available
                         var newTitle = doc.querySelector('title');
                         if (newTitle) document.title = newTitle.textContent;
+
+                        // Update breadcrumbs and titles
+                        var newPageTitleArea = doc.querySelector('.page-title-area');
+                        if (newPageTitleArea) {
+                            $('.page-title-area').html(newPageTitleArea.innerHTML);
+                        }
+
+                        var newSearchBox = doc.querySelector('.search-box');
+                        if (newSearchBox) {
+                            $('.search-box').html(newSearchBox.innerHTML);
+                        }
                     } catch (err) {
                         console.warn('Parser error extracting HTML fragment:', err);
                     }

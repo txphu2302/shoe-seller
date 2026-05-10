@@ -90,6 +90,9 @@
                                 <a href="<?= BASE_URL ?>/admin/contacts" aria-expanded="true"><i class="fa-solid fa-envelope"></i><span>Quản lý Liên hệ</span></a>
                             </li>
                             <li>
+                                <a href="<?= BASE_URL ?>/admin/users" aria-expanded="true"><i class="fa-solid fa-users"></i><span>Quản lý Thành viên</span></a>
+                            </li>
+                            <li>
                                 <a href="<?= BASE_URL ?>/admin/settings" aria-expanded="true"><i class="fa-solid fa-cog"></i><span>Cài đặt Website</span></a>
                             </li>
                             <li class="sidebar-divider" style="border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;"></li>

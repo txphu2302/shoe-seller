@@ -191,6 +191,10 @@ if (isset($_SESSION['success_message'])) {
                             </div>
                         <?php endif; ?>
 
+                        <?php if (!empty($redirect)): ?>
+                            <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($redirect); ?>">
+                        <?php endif; ?>
+
                         <div class="mb-3">
                             <label for="usernameEmail" class="form-label">Username or email address *</label>
                             <input type="text" class="form-control" id="usernameEmail" name="usernameEmail"

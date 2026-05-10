@@ -67,4 +67,68 @@ class Users extends CoreModel
         $result = $this->single();
         return $result->count;
     }
+
+    public function getAllUsers($limit = null, $offset = null)
+    {
+        $sql = "SELECT id, name, email, avatar, role, status, created_at FROM users ORDER BY created_at DESC";
+        if ($limit !== null) {
+            $sql .= " LIMIT :limit";
+            if ($offset !== null) {
+                $sql .= " OFFSET :offset";
+            }
+        }
+
+        $this->query($sql);
+        
+        if ($limit !== null) {
+            $this->bind(':limit', $limit, PDO::PARAM_INT);
+            if ($offset !== null) {
+                $this->bind(':offset', $offset, PDO::PARAM_INT);
+            }
+        }
+        
+        return $this->resultSet();
+    }
+
+    public function updateStatus($id, $status)
+    {
+        $sql = "UPDATE users SET status = :status WHERE id = :id";
+        $this->query($sql);
+        $this->bind(':status', $status);
+        $this->bind(':id', $id, PDO::PARAM_INT);
+        return $this->execute();
+    }
+
+    public function deleteUser($id)
+    {
+        $sql = "DELETE FROM users WHERE id = :id";
+        $this->query($sql);
+        $this->bind(':id', $id, PDO::PARAM_INT);
+        return $this->execute();
+    }
+    public function updateProfile($id, $name, $avatar = null, $password = null)
+    {
+        $sql = "UPDATE users SET name = :name";
+        if ($avatar !== null) {
+            $sql .= ", avatar = :avatar";
+        }
+        if ($password !== null) {
+            $sql .= ", password = :password";
+        }
+        $sql .= " WHERE id = :id";
+
+        $this->query($sql);
+        $this->bind(':name', $name);
+        $this->bind(':id', $id, PDO::PARAM_INT);
+        
+        if ($avatar !== null) {
+            $this->bind(':avatar', $avatar);
+        }
+        if ($password !== null) {
+            $this->bind(':password', $password);
+        }
+
+        return $this->execute();
+    }
 }
+

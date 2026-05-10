@@ -62,7 +62,38 @@ if ($currentPage === '' || ($currentPage === 'home' && $currentAction === 'index
             <div class="header-actions">
                 <a href="#" class="header-icon"><i class="fa-solid fa-magnifying-glass"></i></a>
                 <a href="<?= BASE_URL ?>/cart" class="header-icon"><i class="fa-solid fa-cart-shopping"></i></a>
-                <a href="<?= BASE_URL ?>/users/login" class="header-icon"><i class="fa-regular fa-user"></i></a>
+                <?php if (isset($_SESSION['user'])): ?>
+                    <div class="header-user-dropdown">
+                        <a href="#" class="header-icon" id="userDropdownBtn">
+                            <?php if (!empty($_SESSION['user']['avatar'])): ?>
+                                <img src="<?= BASE_URL . $_SESSION['user']['avatar'] ?>" alt="Avatar" class="avatar-img" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
+                            <?php else: ?>
+                                <i class="fa-solid fa-user-check" style="color: var(--primary-color);"></i>
+                            <?php endif; ?>
+                        </a>
+                        <div class="user-dropdown-content" id="userDropdownContent">
+                            <div class="user-info">
+                                <strong><?= htmlspecialchars($_SESSION['user']['name']) ?></strong>
+                            </div>
+                            <hr style="margin: 5px 0; border-color: rgba(255,255,255,0.1);">
+                            <a href="<?= BASE_URL ?>/profile"><i class="fa-solid fa-id-card"></i> Hồ sơ cá nhân</a>
+                            <?php if ($_SESSION['user']['role'] === 'admin'): ?>
+                                <a href="<?= BASE_URL ?>/admin"><i class="fa-solid fa-gauge"></i> Trang quản trị</a>
+                            <?php endif; ?>
+                            <a href="<?= BASE_URL ?>/users/logout" onclick="return confirm('Bạn có chắc muốn đăng xuất?')"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <?php 
+                        $currentUri = $_SERVER['REQUEST_URI'] ?? '';
+                        $loginUrl = BASE_URL . '/users/login';
+                        // Do not append redirect if we are already on auth pages
+                        if (strpos($currentUri, '/users/') === false) {
+                            $loginUrl .= '?redirect=' . urlencode($currentUri);
+                        }
+                    ?>
+                    <a href="<?= $loginUrl ?>" class="header-icon"><i class="fa-regular fa-user"></i></a>
+                <?php endif; ?>
             </div>
         </div>
     </header>
