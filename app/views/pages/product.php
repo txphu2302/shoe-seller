@@ -68,16 +68,25 @@ function product_page_url($page, $selectedCategory)
                     <?php $imgSrc = product_image_src($item['image'] ?? ''); ?>
                     <article class="product-card">
                         <div class="product-image">
-                            <?php if (!empty($imgSrc)): ?>
-                                <img src="<?= htmlspecialchars($imgSrc) ?>" alt="<?= htmlspecialchars((string)($item['name'] ?? 'Sản phẩm')) ?>" loading="lazy">
-                            <?php else: ?>
-                                <div class="product-image-placeholder"><i class="fa-solid fa-shoe-prints"></i></div>
-                            <?php endif; ?>
+                            <a href="<?= BASE_URL ?>/product/detail/<?= $item['id'] ?>">
+                                <?php if (!empty($imgSrc)): ?>
+                                    <img src="<?= htmlspecialchars($imgSrc) ?>" alt="<?= htmlspecialchars((string)($item['name'] ?? 'Sản phẩm')) ?>" loading="lazy">
+                                <?php else: ?>
+                                    <div class="product-image-placeholder"><i class="fa-solid fa-shoe-prints"></i></div>
+                                <?php endif; ?>
+                            </a>
+                            <div class="product-action">
+                                <button class="btn-add-cart ajax-add-to-cart" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>">
+                                    <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Thêm vào giỏ hàng
+                                </button>
+                            </div>
                         </div>
 
                         <div class="product-info">
                             <div class="product-brand"><?= htmlspecialchars((string)($item['category_name'] ?? '')) ?></div>
-                            <h3 class="product-name"><?= htmlspecialchars((string)($item['name'] ?? '')) ?></h3>
+                            <h3 class="product-name">
+                                <a href="<?= BASE_URL ?>/product/detail/<?= $item['id'] ?>"><?= htmlspecialchars((string)($item['name'] ?? '')) ?></a>
+                            </h3>
                             <p class="product-desc"><?= htmlspecialchars((string)($item['description'] ?? '')) ?></p>
                             <div class="product-price"><?= format_vnd_product_page($item['price'] ?? 0) ?></div>
                         </div>

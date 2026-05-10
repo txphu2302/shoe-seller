@@ -4,7 +4,7 @@ $currentUrl = isset($_GET['url']) ? rtrim($_GET['url'], '/') : '';
 $urlParts = explode('/', $currentUrl);
 $currentPage = strtolower($urlParts[0] ?? 'home');
 $currentAction = strtolower($urlParts[1] ?? 'index');
-$isProductPage = ($currentPage === 'product' || $currentPage === 'products');
+$isProductPage = ($currentPage === 'product' || $currentPage === 'products' || $currentPage === 'order' || $currentPage === 'cart' || $currentPage === 'checkout');
 
 // Xác định nav active
 $navActive = '';
@@ -40,6 +40,9 @@ if ($currentPage === '' || ($currentPage === 'home' && $currentAction === 'index
     <?php elseif (isset($page_css) && is_string($page_css)): ?>
         <link rel="stylesheet" href="<?= BASE_URL ?>/public/css/<?= $page_css ?>.css">
     <?php endif; ?>
+    <script>
+        const BASE_URL = '<?= BASE_URL ?>';
+    </script>
 </head>
 
 <body>
@@ -61,7 +64,11 @@ if ($currentPage === '' || ($currentPage === 'home' && $currentAction === 'index
 
             <div class="header-actions">
                 <a href="#" class="header-icon"><i class="fa-solid fa-magnifying-glass"></i></a>
-                <a href="<?= BASE_URL ?>/cart" class="header-icon"><i class="fa-solid fa-cart-shopping"></i></a>
+                <a href="<?= BASE_URL ?>/cart" class="header-icon" id="cartIcon" style="position: relative;">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <?php $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>
+                    <span class="cart-badge" style="display: <?= $cartCount > 0 ? 'flex' : 'none' ?>;"><?= $cartCount ?></span>
+                </a>
                 <?php if (isset($_SESSION['user'])): ?>
                     <div class="header-user-dropdown">
                         <a href="#" class="header-icon" id="userDropdownBtn">
@@ -77,6 +84,7 @@ if ($currentPage === '' || ($currentPage === 'home' && $currentAction === 'index
                             </div>
                             <hr style="margin: 5px 0; border-color: rgba(255,255,255,0.1);">
                             <a href="<?= BASE_URL ?>/profile"><i class="fa-solid fa-id-card"></i> Hồ sơ cá nhân</a>
+                            <a href="<?= BASE_URL ?>/order/history"><i class="fa-solid fa-box"></i> Theo dõi đơn hàng</a>
                             <?php if ($_SESSION['user']['role'] === 'admin'): ?>
                                 <a href="<?= BASE_URL ?>/admin"><i class="fa-solid fa-gauge"></i> Trang quản trị</a>
                             <?php endif; ?>

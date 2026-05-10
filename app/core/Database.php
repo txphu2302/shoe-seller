@@ -29,14 +29,85 @@ class Database
         }
     }
 
+    // Prepare statement with query
     public function query($sql)
     {
         $this->stmt = $this->dbh->prepare($sql);
-        return $this->stmt;
     }
 
-    public function prepare($sql)
+    // Bind values
+    public function bind($param, $value, $type = null)
     {
-        return $this->dbh->prepare($sql);
+        if (is_null($type)) {
+            switch (true) {
+                case is_int($value):
+                    $type = PDO::PARAM_INT;
+                    break;
+                case is_bool($value):
+                    $type = PDO::PARAM_BOOL;
+                    break;
+                case is_null($value):
+                    $type = PDO::PARAM_NULL;
+                    break;
+                default:
+                    $type = PDO::PARAM_STR;
+            }
+        }
+        $this->stmt->bindValue($param, $value, $type);
+    }
+
+    // Execute the prepared statement
+    public function execute()
+    {
+        return $this->stmt->execute();
+    }
+
+    // Get result set as array of objects/assoc
+    public function resultSet()
+    {
+        $this->execute();
+        return $this->stmt->fetchAll();
+    }
+
+    // Get result set as associative array
+    public function resultSetAssoc()
+    {
+        $this->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Get single record as object/assoc
+    public function single()
+    {
+        $this->execute();
+        return $this->stmt->fetch();
+    }
+
+    // Get row count
+    public function rowCount()
+    {
+        return $this->stmt->rowCount();
+    }
+
+    // Last Insert ID
+    public function lastInsertId()
+    {
+        return $this->dbh->lastInsertId();
+    }
+
+    // Transaction methods
+    public function beginTransaction()
+    {
+        return $this->dbh->beginTransaction();
+    }
+
+    public function commit()
+    {
+        return $this->dbh->commit();
+    }
+
+    public function rollBack()
+    {
+        return $this->dbh->rollBack();
     }
 }

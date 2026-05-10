@@ -116,7 +116,14 @@ class Product extends CoreModel
 
     public function getProductById($id)
     {
-        $this->query("SELECT * FROM products WHERE id = :id LIMIT 1");
+        $sql = "
+            SELECT p.*, c.name AS category_name
+            FROM products p
+            JOIN categories c ON c.id = p.category_id
+            WHERE p.id = :id
+            LIMIT 1
+        ";
+        $this->query($sql);
         $this->bind(':id', (int)$id, PDO::PARAM_INT);
         $this->execute();
         return $this->stmt->fetch(PDO::FETCH_ASSOC) ?: null;

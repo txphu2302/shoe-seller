@@ -1,4 +1,5 @@
-<!-- main content area end -->
+            </div>
+        <!-- main content area end -->
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
@@ -8,6 +9,7 @@
         <!-- footer area end-->
     </div>
     <!-- page container area end -->
+</div>
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- bootstrap 5 js -->

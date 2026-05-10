@@ -52,6 +52,7 @@
     </footer>
 
     <!-- Custom JS -->
+    <script src="<?= BASE_URL ?>/public/js/cart.js"></script>
     <script>
         // JS cơ bản cho giao diện (nếu cần)
     </script>

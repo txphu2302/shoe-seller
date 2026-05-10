@@ -76,7 +76,7 @@ class HomepageController extends Controller
             'hero_subtitle' => $this->settingsModel->getSetting('hero_subtitle') ?? 'Hàng hiệu giá tốt lên đến 50%',
             'hero_description' => $this->settingsModel->getSetting('hero_description') ?? 'Khám phá bộ sưu tập giày thời trang mới nhất với giá ưu đãi đặc biệt.',
             'hero_button_text' => $this->settingsModel->getSetting('hero_button_text') ?? 'MUA NGAY',
-            'hero_button_link' => $this->settingsModel->getSetting('hero_button_link') ?? '/products',
+            'hero_button_link' => $this->settingsModel->getSetting('hero_button_link') ?? '/product',
             'hero_background' => $this->settingsModel->getSetting('hero_background') ?? '/public/images/hero-bg.jpg',
         ];
     }

@@ -292,7 +292,7 @@ $currentPage = $currentPage ?? 1;
                             <div class="mb-3">
                                 <label class="form-label">Link nút CTA</label>
                                 <select class="form-select" name="hero_button_link">
-                                    <option value="/products" <?= ($heroData['hero_button_link'] ?? '') == '/products' ? 'selected' : '' ?>>Trang sản phẩm</option>
+                                    <option value="/product" <?= ($heroData['hero_button_link'] ?? '') == '/product' ? 'selected' : '' ?>>Trang sản phẩm</option>
                                     <option value="/" <?= ($heroData['hero_button_link'] ?? '') == '/' ? 'selected' : '' ?>>Trang chủ</option>
                                     <option value="/about" <?= ($heroData['hero_button_link'] ?? '') == '/about' ? 'selected' : '' ?>>Giới thiệu</option>
                                     <option value="/contact" <?= ($heroData['hero_button_link'] ?? '') == '/contact' ? 'selected' : '' ?>>Liên hệ</option>

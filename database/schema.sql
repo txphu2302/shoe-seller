@@ -37,7 +37,7 @@ INSERT IGNORE INTO `settings` (`key_name`, `key_value`) VALUES
 ('hero_subtitle', 'GIÀY ĐẸP GIÁ TỐT'),
 ('hero_description', 'Khám phá bộ sưu tập giày thời trang mới nhất với giá ưu đãi đặc biệt. Chất lượng cao cấp, phong cách đẳng cấp.'),
 ('hero_button_text', 'MUA NGAY'),
-('hero_button_link', '/products'),
+('hero_button_link', '/product'),
 ('hero_background', '/public/images/hero-bg.jpg'),
 
 -- Featured Products Settings
@@ -149,7 +149,7 @@ INSERT IGNORE INTO `categories` (`name`, `description`) VALUES
 
 INSERT IGNORE INTO `products` (`category_id`, `name`, `description`, `price`, `image`) VALUES
 (1, 'Nike Air Max 270', 'Giày thể thao Nike Air Max 270 với thiết kế hiện đại và đệm khí êm ái.', 150.00, '/public/uploads/product/shoe-1-CN6s8sxT.jpg'),
-(1, 'Adidas Ultraboost 21', 'Giày chạy bộ Adidas Ultraboost 21 với công nghệ Boost giúp tăng cường năng lượng.', 180.00, '/public/uploads/product/shoe-2-7Xk9mPqR.jpg'),
-(2, 'Timberland Classic Boot', 'Giày bốt Timberland Classic với thiết kế bền bỉ và phong cách cổ điển.', 200.00, '/public/uploads/product/shoe-3-Lp4nQv8Z.jpg'),
-(3, 'Birkenstock Arizona', 'Dép xăng đan Birkenstock Arizona với đế lót chân hỗ trợ và thiết kế đơn giản.', 100.00, '/public/uploads/product/shoe-4-Yt2bNc5W.jpg'),
-(4, 'Clarks Tilden Cap', 'Giày tây Clarks Tilden Cap với thiết kế lịch lãm và chất liệu da cao cấp.', 120.00, '/public/uploads/product/shoe-5-Hr7dQv3M.jpg');
+(1, 'Adidas Ultraboost 21', 'Giày chạy bộ Adidas Ultraboost 21 với công nghệ Boost giúp tăng cường năng lượng.', 180.00, '/public/uploads/product/shoe-2-CQo06_SZ.jpg'),
+(2, 'Timberland Classic Boot', 'Giày bốt Timberland Classic với thiết kế bền bỉ và phong cách cổ điển.', 200.00, '/public/uploads/product/shoe-3-CLMx9Woe.jpg'),
+(3, 'Birkenstock Arizona', 'Dép xăng đan Birkenstock Arizona với đế lót chân hỗ trợ và thiết kế đơn giản.', 100.00, '/public/uploads/product/shoe-4-B9TIO9rK.jpg'),
+(4, 'Clarks Tilden Cap', 'Giày tây Clarks Tilden Cap với thiết kế lịch lãm và chất liệu da cao cấp.', 120.00, '/public/uploads/product/shoe-5-B6eP2nw_.jpg');

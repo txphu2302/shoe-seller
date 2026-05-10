@@ -3,7 +3,7 @@
     <?php 
     $heroBg = !empty($settings['about_hero_image']) ? BASE_URL . '/' . $settings['about_hero_image'] : BASE_URL . '/public/images/about_hero_bg.png';
     ?>
-    <section class="about-hero" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('<?= $heroBg ?>');">
+    <section class="about-hero" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('<?= $heroBg ?>');">
         <div class="container">
             <div class="hero-content">
                 <span class="sub-title"><?= $settings['about_hero_subtitle'] ?? 'OUR STORY' ?></span>
@@ -50,23 +50,27 @@
     <!-- Core Values Section -->
     <section class="core-values-section section-padding">
         <div class="container">
-            <span class="sub-title"><?= $settings['about_core_values_subtitle'] ?? 'GIÁ TRỊ CỐT LÕI' ?></span>
-            <h2><?= $settings['about_core_values_title'] ?? 'Điều làm nên ' . ($settings['company_name'] ?? 'ShoeSeller') . '.' ?></h2>
+            <span class="sub-title text-center" style="display: block; margin-bottom: 20px;"><?= $settings['about_core_values_subtitle'] ?? 'GIÁ TRỊ CỐT LÕI' ?></span>
+            <h2 class="text-center"><?= $settings['about_core_values_title'] ?? 'Điều làm nên ' . ($settings['company_name'] ?? 'ShoeSeller') . '.' ?></h2>
             
             <div class="values-grid">
                 <div class="value-card">
+                    <i class="fa-solid fa-shield-check fa-2x mb-4 text-primary"></i>
                     <h3><?= $settings['about_value_1_title'] ?? 'Chính hãng 100%' ?></h3>
                     <p><?= $settings['about_value_1_desc'] ?? 'Cam kết hoàn tiền gấp 3 nếu phát hiện hàng giả, hàng kém chất lượng.' ?></p>
                 </div>
                 <div class="value-card">
+                    <i class="fa-solid fa-leaf fa-2x mb-4 text-primary"></i>
                     <h3><?= $settings['about_value_2_title'] ?? 'Bền vững' ?></h3>
                     <p><?= $settings['about_value_2_desc'] ?? 'Ưu tiên các dòng sản phẩm từ chất liệu tái chế, thân thiện với môi trường.' ?></p>
                 </div>
                 <div class="value-card">
+                    <i class="fa-solid fa-truck-fast fa-2x mb-4 text-primary"></i>
                     <h3><?= $settings['about_value_3_title'] ?? 'Giao nhanh toàn quốc' ?></h3>
                     <p><?= $settings['about_value_3_desc'] ?? 'Nội thành 1-2 ngày, miễn phí vận chuyển cho đơn hàng từ 1.500.000đ.' ?></p>
                 </div>
                 <div class="value-card">
+                    <i class="fa-solid fa-award fa-2x mb-4 text-primary"></i>
                     <h3><?= $settings['about_value_4_title'] ?? 'Bảo hành dài hạn' ?></h3>
                     <p><?= $settings['about_value_4_desc'] ?? 'Bảo hành keo và đường chỉ trong vòng 6 tháng cho tất cả sản phẩm.' ?></p>
                 </div>

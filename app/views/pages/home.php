@@ -10,7 +10,7 @@ $heroTitle = (string)($hero['hero_title'] ?? '');
 $heroSubtitle = (string)($hero['hero_subtitle'] ?? '');
 $heroDescription = (string)($hero['hero_description'] ?? '');
 $heroButtonText = (string)($hero['hero_button_text'] ?? 'MUA NGAY');
-$heroButtonLink = (string)($hero['hero_button_link'] ?? '/products');
+$heroButtonLink = (string)($hero['hero_button_link'] ?? '/product');
 $heroImage = (string)($hero['hero_background'] ?? '');
 
 $heroCtaHref = str_starts_with($heroButtonLink, '/')
@@ -99,18 +99,20 @@ function format_vnd($value)
                 <?php foreach ($best_sellers as $item): ?>
                     <div class="product-card">
                         <div class="product-image">
-                            <?php if (!empty($item['image'])): ?>
-                                <img src="<?= BASE_URL . htmlspecialchars((string)$item['image']) ?>" alt="<?= htmlspecialchars((string)($item['name'] ?? 'Product')) ?>" loading="lazy">
-                            <?php else: ?>
-                                <div class="product-image-placeholder">
-                                    <i class="fa-solid fa-shoe-prints"></i>
-                                </div>
-                            <?php endif; ?>
+                            <a href="<?= BASE_URL ?>/product/detail/<?= $item['id'] ?>">
+                                <?php if (!empty($item['image'])): ?>
+                                    <img src="<?= BASE_URL . htmlspecialchars((string)$item['image']) ?>" alt="<?= htmlspecialchars((string)($item['name'] ?? 'Product')) ?>" loading="lazy">
+                                <?php else: ?>
+                                    <div class="product-image-placeholder">
+                                        <i class="fa-solid fa-shoe-prints"></i>
+                                    </div>
+                                <?php endif; ?>
+                            </a>
 
                             <div class="product-action">
-                                <a class="btn-add-cart" href="<?= BASE_URL ?>/product">
-                                    <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Xem chi tiết
-                                </a>
+                                <button class="btn-add-cart ajax-add-to-cart" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>">
+                                    <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Thêm vào giỏ hàng
+                                </button>
                             </div>
                         </div>
 
@@ -170,17 +172,21 @@ function format_vnd($value)
                 <?php foreach ($new_arrivals as $item): ?>
                     <div class="product-card">
                         <div class="product-image">
-                            <div class="product-action">
-                                <a class="btn-add-cart" href="<?= BASE_URL ?>/product"><i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Xem chi tiết</a>
-                            </div>
-
-                            <?php if (!empty($item['image'])): ?>
-                                <img src="<?= BASE_URL . htmlspecialchars((string)$item['image']) ?>" alt="<?= htmlspecialchars((string)($item['name'] ?? 'Product')) ?>" loading="lazy">
-                            <?php else: ?>
-                                <div class="product-image-placeholder">
-                                    <i class="fa-solid fa-shoe-prints"></i>
+                            <a href="<?= BASE_URL ?>/product/detail/<?= $item['id'] ?>">
+                                <div class="product-action">
+                                    <button class="btn-add-cart ajax-add-to-cart" data-id="<?= $item['id'] ?>" data-name="<?= htmlspecialchars($item['name']) ?>">
+                                        <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Thêm vào giỏ hàng
+                                    </button>
                                 </div>
-                            <?php endif; ?>
+
+                                <?php if (!empty($item['image'])): ?>
+                                    <img src="<?= BASE_URL . htmlspecialchars((string)$item['image']) ?>" alt="<?= htmlspecialchars((string)($item['name'] ?? 'Product')) ?>" loading="lazy">
+                                <?php else: ?>
+                                    <div class="product-image-placeholder">
+                                        <i class="fa-solid fa-shoe-prints"></i>
+                                    </div>
+                                <?php endif; ?>
+                            </a>
                         </div>
 
                         <div class="product-info">

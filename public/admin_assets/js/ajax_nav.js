@@ -223,14 +223,34 @@ $(document).ready(function() {
                 'X-Requested-With': 'XMLHttpRequest'
             },
             success: function(response) {
-                // If the response is HTML, it's likely the same page with success/error messages
-                $(mainContentSelector).html(response);
+                // Parse the response HTML
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(response, 'text/html');
+
+                // Extract main content
+                var newContent = $(doc).find(mainContentSelector).html();
+
+                if (newContent) {
+                    $(mainContentSelector).html(newContent);
+                    
+                    // Update page title
+                    var newTitle = $(doc).find('title').text();
+                    if (newTitle) document.title = newTitle;
+
+                    // Update page title area
+                    var newPageTitle = $(doc).find('.page-title-area').html();
+                    if (newPageTitle) $('.page-title-area').html(newPageTitle);
+                } else {
+                    // Fallback
+                    $(mainContentSelector).html(response);
+                }
+
                 finishLoader();
                 window.scrollTo(0, 0);
                 
-                // Show toast if success message exists in response
+                // Check if there are any toast messages to show
                 if (response.indexOf('alert-success') !== -1 && window.SRTdash && window.SRTdash.toast) {
-                    window.SRTdash.toast('Cập nhật thành công!', 'success');
+                    window.SRTdash.toast('Thao tác thành công!', 'success');
                 }
             },
             error: function(xhr, status, error) {

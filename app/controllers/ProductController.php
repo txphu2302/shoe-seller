@@ -47,4 +47,33 @@ class ProductController extends Controller
         $this->view('pages/product', $data);
         $this->view('layouts/footer');
     }
+
+    public function detail($id = null)
+    {
+        if (!$id) {
+            header('Location: ' . BASE_URL . '/product');
+            exit;
+        }
+
+        $product = $this->productModel->getProductById($id);
+
+        if (!$product) {
+            header('Location: ' . BASE_URL . '/product');
+            exit;
+        }
+
+        // Optional: fetch related products (same category)
+        $relatedProducts = $this->productModel->getProductsByCategory($product['category_id'], 4, 0);
+
+        $data = [
+            'title' => $product['name'],
+            'page_css' => 'product_detail',
+            'product' => $product,
+            'related_products' => $relatedProducts
+        ];
+
+        $this->view('layouts/header', $data);
+        $this->view('pages/product_detail', $data);
+        $this->view('layouts/footer');
+    }
 }
