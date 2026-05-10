@@ -1,200 +1,173 @@
-# Shoe Seller - Web Application Project
+# Shoe Seller E-Commerce Web Application
 
-## Project Overview
+A full-featured e-commerce web application for selling shoes, built with PHP and MySQL using custom MVC architecture.
 
-**Shoe Seller** is a web-based e-commerce platform for a shoe company/business built as a semester project for Web Programming course (HK2 2025-2026). The project implements a custom MVC (Model-View-Controller) architecture without using any PHP frameworks, following academic requirements.
+## Features
 
----
+**User Management**: Registration, login, profile management, and role-based access control (Member/Admin)
 
-## Current Project Status
+**Product Catalog**: Browse products by category, search products by keyword, view product details
 
-### ✅ Already Implemented
+**Shopping Cart**: Add to cart, update quantity, remove items, and checkout process
 
-#### Admin Features
-- **Settings Management** (`/admin/settings`)
-  - Website configuration (company name, phone, address, email, social media)
-  - Logo upload with validation (2MB max, image formats only)
-  - Real-time preview of current settings
-  - Success/error message handling
-  
-- **Contacts Management** (`/admin/contacts`)
-  - List all customer contacts with pagination (10 items per page)
-  - Filter by status: All, Unread, Read, Replied
-  - View contact details with auto-mark as read
-  - Update contact status (unread → read → replied)
-  - Delete contacts with confirmation
-  - Statistics cards showing unread/read/replied counts
-  - Quick reply via email client integration
+**Order Management**: Track order status, view order history
 
-#### Core Infrastructure
-- **MVC Architecture**: Custom routing system without PHP frameworks
-- **URL Rewriting**: `.htaccess` configured for clean URLs (e.g., `/users/login` instead of `index.php?url=users/login`)
-- **Database Design**: Complete MySQL schema with 9 normalized tables
-- **Database Configuration**: Config file for database connection setup (`config/config.php`)
-- **Session Management**: Session handling for user authentication
-- **Auto-loading**: PSR-4 compatible autoloader for controllers and models
+**Admin Dashboard**:
+- Manage homepage content (Hero banner, featured products, brand marquee)
+- Product management (add, edit, delete, search by category/keyword)
+- Order management (view, update status: pending/processing/shipped/delivered/cancelled)
+- Customer contact management (view, mark as read/replied, delete)
+- Website settings (company info, logo, social media links)
 
-#### Core Classes
-- **`App.php`** - Router with URL parsing and controller dispatching
-- **`Controller.php`** - Base controller with model() and view() methods for MVC pattern
-- **`Database.php`** - PDO-based database class with prepared statements (SQL injection protection)
+**Contact System**: Contact form with admin panel to manage inquiries
 
-#### Controllers (Nhiệm vụ 1)
-- **`HomeController`** - Homepage display (dữ liệu động từ database)
-- **`UsersController`** - User authentication (login/logout)
-  - Login with email/username support
-  - Secure password verification (password_verify)
-  - Session management
-  - Role-based redirects
-- **`AdminController`** - Admin dashboard - NHIỆM VỤ 1
-  - **Settings management** - Quản lý thông tin website (tên công ty, logo, liên hệ, mạng xã hội)
-  - **Contacts management** - Quản lý liên hệ khách hàng (xem, đánh dấu đã đọc/đã phản hồi, xóa)
-  - Dashboard statistics (tổng liên hệ, liên hệ chưa đọc)
-- **`ContactController`** - Public contact page (dữ liệu động từ database + form lưu DB)
+**Responsive Design**: Mobile-friendly interface with custom CSS
 
-#### Views & Frontend - NHIỆM VỤ 1
-- **Admin Dashboard** - Giao diện quản trị tập trung Nhiệm vụ 1
-  - `admin/dashboard.php` - Dashboard với thống kê liên hệ
-  - `admin/settings.php` - Cài đặt website (logo, tên công ty, thông tin liên hệ)
-  - `admin/contacts.php` - Quản lý liên hệ khách hàng
-  - `admin/contact_detail.php` - Chi tiết liên hệ
-  - `admin/layouts/header.php` - Header admin (đã tinh gọn navbar)
-  - `admin/layouts/footer.php` - Footer admin
-- **User Authentication**
-  - `users/login.php` - Trang đăng nhập admin
-- **Public Pages** - Hiển thị dữ liệu động từ database
-  - `home/index.php` - Trang chủ (dữ liệu động)
-  - `home/contact.php` - Trang liên hệ (dữ liệu động + form)
-- **Layouts** - Tự động load settings từ database
-  - `layouts/header.php` - Header public (tiêu đề, logo động)
-  - `layouts/footer.php` - Footer public (thông tin liên hệ động)
+## Prerequisites
 
-#### Security Features Implemented
-- PDO prepared statements for database queries
-- Password hashing with PHP's password_verify()
-- Session-based authentication
-- Admin role checking
-- User status verification (ban prevention)
-- Input validation on login form
+XAMPP (v8.0 or higher recommended)
+- Includes Apache, MySQL, and PHP
+- Download from: https://www.apachefriends.org/
 
-#### Database Tables (Nhiệm vụ 1)
-1. `users` - Tài khoản admin (đăng nhập quản trị)
-2. `settings` - Cấu hình website (tên công ty, logo, liên hệ, mạng xã hội)
-3. `contacts` - Tin nhắn liên hệ từ khách hàng (với trạng thái unread/read/replied)
+## Installation & Setup
 
-### ✅ Nhiệm vụ 1 ĐÃ HOÀN THÀNH
+### 1. Install XAMPP
+Download and install XAMPP for Windows
+- Install to the default location (usually `C:\xampp`)
+- Launch XAMPP Control Panel
 
-#### Tính năng đã hiện thực:
-- ✅ Giao diện Trang chủ (dữ liệu động từ database)
-- ✅ Giao diện Trang liên hệ (dữ liệu động + form lưu DB)
-- ✅ Quản lý thông tin website (Settings) - tên công ty, logo, liên hệ, mạng xã hội
-- ✅ Quản lý liên hệ khách hàng (xem, đánh dấu đã đọc/đã phản hồi, xóa)
-- ✅ Admin dashboard tinh gọn (chỉ các chức năng Nhiệm vụ 1)
+### 2. Clone/Download the Project
+Place the project folder in XAMPP's htdocs directory:
+```
+C:\xampp\htdocs\Shoe-Seller\
+```
+Or clone using Git:
+```bash
+cd C:\xampp\htdocs
+git clone <repository-url> Shoe-Seller
+```
 
-### ⏳ Các Nhiệm vụ Tiếp theo (Nhiệm vụ 2, 3...)
-- Products, Orders, Categories management
-- Shopping cart và checkout
-- News/Blog management
-- FAQ management
-- User profile management
-- Comment/Review system
+### 3. Configure Database
+**Start MySQL Server:**
+- Open XAMPP Control Panel
+- Click "Start" for MySQL module
+- Wait until it shows "Running"
 
----
+**Create Database:**
+- Click "Admin" button next to MySQL (opens phpMyAdmin)
+- Click "New" in the left sidebar
+- Enter database name: `shoe_seller`
+- Select Collation: `utf8mb4_unicode_ci`
+- Click "Create"
 
-## Assignment Requirements (Bài Tập Lớn)
+**Import Database Schema:**
+- Select your newly created database
+- Click "Import" tab
+- Click "Choose File" and select `database/schema.sql` from the project
+- Scroll down and click "Import"
+- Wait for success message
 
-### 📋 Course Information
-- **Subject**: Web Programming (Lập trình web)
-- **Semester**: HK2 2025-2026
-- **Team Size**: Maximum 4 members
-- **Status**: Minimum 20-page report required
+### 4. Configure Environment
+Edit `config/config.php` with your settings:
+```php
+<?php
+// Database Configuration
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'shoe_seller');
 
-### 🎯 Main Objectives
-1. Design interface and build basic features for a company/business website
-2. Use learned technologies: HTML5, CSS3, JavaScript, PHP, and MySQL
-3. Understand web frameworks/libraries, basic security, and SEO
-4. Implement MVC pattern without using PHP frameworks
-5. Create responsive design for multiple devices
+// Application Configuration
+define('BASE_URL', 'http://localhost/Shoe-Seller');
+define('APP_NAME', 'Shoe Seller');
 
-### 📚 Technology Stack Requirements
-✅ **Allowed**:
-- PHP 7.0+
-- MySQL
-- HTML5 & CSS3
-- JavaScript
-- CSS3 & JavaScript frameworks/libraries (Bootstrap, jQuery, etc.)
-- Dashboard template (Srtdash for admin panel)
+// Paths
+define('ROOT_PATH', dirname(__DIR__));
+define('APP_PATH', ROOT_PATH . '/app');
+define('PUBLIC_PATH', ROOT_PATH . '/public');
+```
 
-❌ **NOT Allowed**:
-- PHP Frameworks (Laravel, CodeIgniter, Symfony, etc.)
-- CMF (Content Management Framework)
-- CMS (Content Management System)
-- External image URLs (must upload to server)
+**Note:** Default XAMPP MySQL credentials are:
+- Username: `root`
+- Password: (empty/blank)
 
-### 🔐 Technical Requirements
-- Input validation (both JavaScript client-side and PHP server-side)
-- W3C HTML5/CSS3 compliance validation
-- Responsive design (mobile, tablet, desktop)
-- Browser compatibility testing
-- Security considerations and protection mechanisms
-- SEO optimization
-- Pagination for long listings
-- Image upload functionality
+### 5. Set Folder Permissions
+Ensure the following directories are writable:
+```
+public/images/
+public/uploads/product/
+public/uploads/news/
+```
+In Windows, right-click each folder → Properties → Security → Edit → Add write permissions for your user.
 
-### 🏗️ Website Structure Required
+### 6. Start the Application
+**Start Apache Server:**
+- Open XAMPP Control Panel
+- Click "Start" for Apache module
+- Wait until it shows "Running"
 
-#### Public Pages
-- **Homepage** (Trang chủ)
-- **About** (Giới thiệu)
-- **Product/Service Info** (Thông tin dịch vụ, sản phẩm)
-- **Price List** (Bảng giá)
-- **Contact** (Liên hệ)
-- **FAQ** (Hỏi/đáp)
-- **News/Blog** (Tin tức)
-- **Product Listing** (with search capability)
-- **Product Details**
-- **Shopping Cart** (if applicable)
+**Access the Application:**
+- Open your web browser
+- Navigate to: `http://localhost/Shoe-Seller`
 
-#### User Pages
-- **Registration** (Đăng ký)
-- **Login** (Đăng nhập)
-- **User Profile** (manage password, avatar, info)
-- **Comment/Review** (for products and articles)
+## Default Credentials
 
-#### Admin Dashboard Pages
-- **User Management** (view, edit, ban, delete users)
-- **Contact Management** (view, mark as read/replied, delete)
-- **Product Management** (CRUD operations)
-- **Order Management** (view, change status)
-- **News/Blog Management** (CRUD operations)
-- **Comment Management** (view, manage user comments)
-- **Settings Management** (website info, logo, contact details)
-- **FAQ Management** (CRUD operations)
+The `schema.sql` file includes demo users (password for all: `password`):
 
-### 👥 User Roles & Features
+**Admin Account**
+- Email: `admin@shoeseller.com`
+- Password: `password`
 
-#### Guest (Khách)
-- View public information (homepage, products, services, contact info, news)
-- Search for resources (news, products, services)
-- Register and login
+**Member Account**
+- Email: `john.doe@shoeseller.com`
+- Password: `password`
 
-#### Member (Thành viên - Logged In)
-- Change personal information, password, avatar
-- Write comments and reviews
-- View order history
-- Other member-specific features
+## Project Structure
 
-#### Admin (Quản trị viên)
-- User management (view, edit, ban, delete)
-- Comment/review management
-- Customer contact management
-- Public page content management
-- Product management (add, edit, delete, search)
-- Order and cart management
-- News management (add, edit, delete, search)
-- Website settings management
-
----
+```
+Shoe-Seller/
+├── database/
+│   └── schema.sql              # Database schema and sample data
+├── config/
+│   └── config.php             # Application configuration
+├── app/
+│   ├── core/
+│   │   ├── App.php           # Application bootstrap & routing
+│   │   ├── Controller.php    # Base controller class
+│   │   └── Database.php      # Database connection (PDO)
+│   ├── controllers/           # Application controllers
+│   │   ├── HomeController.php
+│   │   ├── ProductController.php
+│   │   ├── CartController.php
+│   │   ├── CheckoutController.php
+│   │   ├── OrderController.php
+│   │   ├── UsersController.php
+│   │   ├── ContactController.php
+│   │   ├── AboutController.php
+│   │   ├── ProfileController.php
+│   │   ├── HomepageController.php
+│   │   └── AdminController.php
+│   ├── models/                # Data models
+│   │   ├── CoreModel.php
+│   │   ├── Users.php
+│   │   ├── Product.php
+│   │   ├── Order.php
+│   │   ├── Settings.php
+│   │   └── Contacts.php
+│   ├── views/                 # View templates
+│   │   ├── layouts/           # Header, Footer
+│   │   ├── pages/             # Public pages
+│   │   └── admin/             # Admin pages
+│   └── router/
+│       └── routes.php         # Route definitions
+├── public/                    # Public web root
+│   ├── index.php             # Front controller
+│   ├── css/                  # Stylesheets
+│   ├── js/                   # JavaScript files
+│   ├── images/               # Static images
+│   └── uploads/              # User uploaded files
+└── README.md                  # This file
+```
 
 ## Database Schema
 
@@ -202,419 +175,104 @@
 
 | Table | Purpose |
 |-------|---------|
-| `users` | User accounts with roles and status |
-| `products` | Product catalog |
-| `categories` | Product categories |
-| `product_attributes` | Product sizes and stock info |
-| `orders` | Order headers |
-| `order_details` | Order line items |
-| `contacts` | Customer messages |
+| `users` | User accounts with roles (admin/member) and status (active/banned) |
+| `categories` | Product categories (Sneakers, Boots, Sandals, Formal Shoes) |
+| `products` | Product catalog with name, description, price, image |
+| `product_attributes` | Product sizes and stock quantities |
+| `orders` | Order headers with status tracking |
+| `order_details` | Order line items (product, size, quantity, price) |
+| `contacts` | Customer messages with status (unread/read/replied) |
 | `faqs` | FAQ entries |
-| `settings` | Website configuration |
+| `settings` | Website configuration (key-value pairs) |
 
 ### Key Database Features
 - UTF-8 Unicode support for Vietnamese text
 - Foreign key constraints for data integrity
+- ENUM types for status fields
 - Timestamp tracking for created dates
-- Status enums for users, orders, and contacts
-- Role-based user differentiation
 
----
+## Troubleshooting
 
-## Project Structure
+### Apache Won't Start
+**Port 80 in use:** Another application is using port 80 (like Skype, IIS)
+- **Solution:** Change Apache port in XAMPP Config → Apache (httpd.conf)
+- Change `Listen 80` to `Listen 8080`
+- Access site at `http://localhost:8080/Shoe-Seller`
 
+### MySQL Won't Start
+**Port 3306 in use:** Another MySQL/database service is running
+- **Solution:** Stop other database services or change MySQL port in XAMPP
+
+### "Access Denied" Database Error
+- Check `config/config.php` has correct database credentials
+- Ensure database name matches the one you created
+- Default XAMPP MySQL user is `root` with empty password
+
+### Page Not Found / Blank Page
+- Check Apache is running in XAMPP Control Panel
+- Verify mod_rewrite is enabled in Apache
+- Check `.htaccess` file exists in project root
+
+### File Upload Errors
+- Ensure upload directories have write permissions
+- Check PHP upload limits in `php.ini`:
+  ```
+  upload_max_filesize = 10M
+  post_max_size = 10M
+  ```
+
+### CSS/JS Not Loading
+- Verify `BASE_URL` in `config.php` matches your actual URL
+- Clear browser cache (Ctrl+F5 for hard refresh)
+
+## Development
+
+### Accessing Admin Panel
+After logging in with admin credentials, access the admin dashboard at:
 ```
-Shoe-Seller/
-├── .git/                     # Git repository
-├── .htaccess                 # URL rewriting configuration
-├── index.php                 # Entry point with autoloader
-├── README.md
-├── config/
-│   └── config.php           # Database and path configuration
-├── app/
-│   ├── core/
-│   │   ├── App.php          # Router and application kernel
-│   │   ├── Controller.php   # Base controller class
-│   │   └── Database.php     # PDO database connection class
-│   ├── controllers/
-│   │   ├── HomeController.php       # Homepage
-│   │   ├── UsersController.php      # Authentication & user management
-│   │   └── AdminController.php      # Admin dashboard
-│   ├── models/               # Model classes
-│   │   ├── Users.php        # User authentication and management
-│   │   ├── Settings.php     # Website configuration management
-│   │   ├── Contacts.php     # Contact messages management
-│   │   └── coreModel.php    # Base model with PDO operations
-│   └── views/
-│       ├── home/
-│       │   └── index.php            # Homepage view
-│       ├── users/
-│       │   ├── login.php            # Login page
-│       │   ├── register.php         # Registration page
-│       │   ├── users.php            # User profile page
-│       │   └── img/                 # User-related images
-│       ├── admin/
-│       │   ├── dashboard.php        # Admin dashboard
-│       │   ├── admin.php            # Admin pages
-│       │   └── layouts/
-│       │       ├── header.php       # Admin header with Srtdash template
-│       │       └── footer.php       # Admin footer
-│       └── layouts/
-│           ├── header.php           # Public header
-│           └── footer.php           # Public footer
-├── database/
-│   └── schema.sql           # MySQL database schema
-├── public/
-│   ├── css/
-│   │   └── style.css               # Custom CSS
-│   ├── js/                         # JavaScript files
-│   ├── images/                     # Website images
-│   └── admin_assets/               # Srtdash dashboard template
-│       ├── css/
-│       ├── js/
-│       ├── images/
-│       └── ...
-└── [other asset files]
+http://localhost/Shoe-Seller/admin
 ```
 
-**Key Directories:**
-- `/app/core` - Core framework classes
-- `/app/controllers` - Request handlers (3 controllers implemented)
-- `/app/models` - Database models (to be created)
-- `/app/views` - Template files for rendering
-- `/public` - Static assets (CSS, JS, images)
-- `/config` - Configuration files
+Or through the navigation menu (visible when logged in as admin).
+
+### Making Changes
+- **PHP Files:** Edit files in `app/` directory, refresh browser to see changes
+- **CSS/JS:** Edit files in `public/css/` and `public/js/`, hard refresh browser (Ctrl+F5)
+- **Database:** Make changes via phpMyAdmin or update `schema.sql` for fresh installs
+
+### Debugging
+- Check Apache error logs: `C:\xampp\apache\logs\error.log`
+- Check PHP errors: Enable error reporting in `config.php`
+- Use `var_dump()` or `print_r()` for debugging variables
+
+## MVC Architecture
+
+This project uses a custom MVC (Model-View-Controller) pattern:
+
+**Model**: Handles database operations (query, insert, update, delete)
+**View**: HTML templates that display data
+**Controller**: Processes requests, calls models, renders views
+
+Example flow:
+1. User visits `/product`
+2. `App.php` routes to `ProductController::index()`
+3. Controller calls `Product` model to get data
+4. Controller loads `views/pages/product.php` view with data
+
+## Support
+
+For issues or questions, please refer to:
+
+- **XAMPP Documentation:** https://www.apachefriends.org/docs.html
+- **PHP Documentation:** https://www.php.net/manual/
+- **MySQL Documentation:** https://dev.mysql.com/doc/
+
+## License
+
+This project is for educational purposes only.
 
 ---
 
-## Installation & Setup
+**Last Updated**: May 10, 2026  
+**Version**: 1.0
 
-### Prerequisites
-- PHP 7.0 or higher (tested with PHP 7.4+)
-- MySQL 5.7 or higher
-- Apache with mod_rewrite enabled
-- XAMPP or similar local development environment
-
-### Installation Steps
-
-1. **Copy project to htdocs**
-   ```bash
-   cp -r Shoe-Seller C:\xampp\htdocs\
-   ```
-
-2. **Create Database**
-   - Open phpMyAdmin (http://localhost/phpmyadmin)
-   - Create new database or import `database/schema.sql` file
-   - Run the schema to create all 9 tables
-
-3. **Configure Database Connection**
-   - Edit `config/config.php`
-   - Update database credentials:
-     ```php
-     define('DB_HOST', 'localhost');     // Your MySQL host
-     define('DB_USER', 'root');          // Your MySQL username
-     define('DB_PASS', '');              // Your MySQL password (if any)
-     define('DB_NAME', 'shoe_seller');   // Database name
-     ```
-   - Update BASE_URL if needed:
-     ```php
-     define('BASE_URL', 'http://localhost:8080/Shoe-Seller');
-     ```
-
-4. **Set File Permissions**
-   - Make upload directories writable:
-     ```bash
-     chmod 755 public/images/
-     chmod 755 public/admin_assets/
-     ```
-
-5. **Verify .htaccess is Enabled**
-   - Check Apache's `httpd.conf` has `mod_rewrite` enabled
-   - Verify `AllowOverride All` is set for the project directory
-   - Test with: http://localhost:8080/Shoe-Seller/users/login (should work without index.php)
-
-6. **Start Apache and MySQL**
-   - Via XAMPP Control Panel
-   - Or via terminal: `xampp start` (Windows)
-
-7. **Access the Application**
-   - **Homepage**: http://localhost:8080/Shoe-Seller/
-   - **Login**: http://localhost:8080/Shoe-Seller/users/login
-   - **Register**: http://localhost:8080/Shoe-Seller/users/register
-   - **Admin Dashboard**: http://localhost:8080/Shoe-Seller/admin/
-
-### Default Credentials
-- The database schema includes default admin account setup
-- Check `database/schema.sql` for initial admin credentials
-- Create test users via registration form at `/users/register`
-
-### Database Sample Data
-- Insert sample data into tables via phpMyAdmin after schema creation
-- Or run INSERT statements from `database/schema.sql`
-
-### Verification Checklist
-- [ ] Database connected and tables created
-- [ ] `.htaccess` URL rewriting working (clean URLs without index.php)
-- [ ] Login page accessible at `/users/login`
-- [ ] Admin dashboard accessible at `/admin/` (requires login as admin)
-- [ ] Sessions working (login/logout functionality)
-- [ ] No 404 errors when accessing controllers
-
----
-
-## Quick Start - Currently Working Features
-
-### 🌐 Public Accessible Routes
-- **Homepage**: `/` or `/home/` - View homepage
-- **Login**: `/users/login` - User login form with email/username support
-- **Register**: `/users/register` - User registration form
-
-### 🔐 Authenticated Routes
-- **User Dashboard**: `/users/` - User profile (requires login)
-- **Admin Dashboard**: `/admin/` - Admin dashboard (requires admin role)
-- **Admin Settings**: `/admin/settings` - Website configuration (admin only)
-- **Admin Contacts**: `/admin/contacts` - Contact management (admin only)
-- **Admin Contact View**: `/admin/contact/view/{id}` - View contact details (admin only)
-
-### 🔧 Technical Features Ready to Use
-- Clean URL routing system (no index.php needed)
-- Session-based authentication
-- Admin role checking and redirection
-- User status verification (ban/active)
-- Secure password handling with hashing
-- PDO database queries with prepared statements
-- MVC pattern with controller-based architecture
-
-### 📝 Next Steps to Complete Core Features
-1. Create **Models** for database operations (Users, Products, Orders, etc.)
-2. Build **Product Management** (listing, details, search)
-3. Implement **Shopping Cart** functionality
-4. Develop **Admin CRUD operations** for all resources
-5. Create **News/Blog system**
-6. Add **Comment/Review system**
-7. Implement **Image upload** functionality
-8. Add **Search and filtering** features
-
----
-
-### 🤝 Common Tasks (All Members)
-- Design application model (MVC without framework)
-- Design relational database
-- Design common templates for website
-- User registration/login interface and functionality
-- User permission/role management
-- User management for admin (view, reset password, lock users)
-- User profile management (change info, password, avatar)
-
-### 📌 Individual Tasks (Choose One Per Member)
-
-#### Task #1
-**Public Pages:**
-- Homepage
-- Contact page
-
-**Admin Management:**
-- Website content management (company info, phone, address, images, logo)
-- Customer contact management (view, mark as read/replied, delete)
-
-**Contact Email:** [Team Member 1]
-
----
-
-#### Task #2
-**Public Pages:**
-- About page
-- FAQ page
-
-**Admin Management:**
-- Website content management for assigned pages
-- FAQ management (CRUD operations)
-
-**Contact Email:** [Team Member 2]
-
----
-
-#### Task #3
-**Public Pages:**
-- Product listing page (with keyword search)
-- Product details page
-- Shopping cart
-
-**Admin Management:**
-- Product management (view/search, add, edit, delete)
-- Cart and order management (view info, change status)
-
-**Contact Email:** [Team Member 3]
-
----
-
-#### Task #4
-**Public Pages:**
-- News/blog listing page (with keyword search)
-- News/blog detail page (read article)
-
-**Admin Management:**
-- News management (view/search, add, edit, delete)
-- Comment/review management for articles
-
-**Contact Email:** [Team Member 4]
-
----
-
-## Implementation Notes
-
-### Admin Dashboard
-- Use Srtdash template for admin interface
-- Repository: https://github.com/puikinsh/srtdash-admin-dashboard
-- Demo: https://colorlib.com/polygon/srtdash/index.html
-
-### Important Requirements
-1. **Input Validation**: Validate all forms on both client (JavaScript) and server (PHP)
-2. **Pagination**: Implement for all long listing pages
-3. **Image Upload**: Upload to server, don't use external URLs
-4. **W3C Validation**: Test HTML5/CSS3 at validator.w3.org
-5. **Security**: Prevent SQL injection, XSS, and other common vulnerabilities
-6. **SEO**: Optimize meta tags, keywords, descriptions for each page
-
----
-
-## Submission Requirements
-
-### 📝 Report (Minimum 20 pages)
-Required sections:
-- **Cover Page**: Group contact email
-- **Introduction**: Understanding of company/business websites
-- **Theoretical Foundation**: 
-  - Libraries and technologies used (advantages/disadvantages)
-  - Web security vulnerabilities and prevention
-  - SEO optimization
-- **Application Design**: 
-  - Database design and table descriptions
-  - Source code structure and MVC model
-  - Application features and flowcharts
-- **Implementation**: 
-  - Feature descriptions with screenshots/images
-- **Installation Guide**: 
-  - Installation steps
-  - Required environment and PHP version
-- **Team Roles**: 
-  - Task distribution among members
-- **References**: 
-  - Sources and resources used
-
-### 📦 Deliverables
-- Source code (all PHP, HTML, CSS, JavaScript files)
-- Database file (schema.sql with sample data)
-- Installation guide
-- Report (hard copy and soft copy)
-- Working demo during presentation
-
-### 🎓 Evaluation Criteria
-- **Feature Quantity & Quality**: Number and completeness of implemented features
-- **UI/UX Design**: Interface beauty and usability
-- **Database Design**: Proper normalization and structure
-- **Code Quality**: Proper MVC structure, clean code
-- **Security**: Input validation, protection against attacks
-- **Responsive Design**: Works on mobile, tablet, desktop
-- **Browser Compatibility**: Tested on multiple browsers
-
-### ⚠️ Plagiarism Policy
-- Copying source code from other websites without original work = 0 points
-- Identical code with other groups or previous years = 0 points (fraud)
-- All code must be written by group members
-
----
-
-## Important Notes
-
-### Code Quality Standards
-- ✅ Custom MVC implementation (no frameworks)
-- ✅ PHP 7.0+ syntax
-- ✅ UTF-8 encoding for Vietnamese text
-- ✅ Proper autoloading and namespace organization
-- ✅ Input validation on both client and server
-- ✅ SQL injection prevention (prepared statements)
-- ✅ XSS attack prevention
-
-### Bonus Points
-- Extra features beyond requirements
-- Beautiful and professional UI design
-- Advanced database design
-- Security best practices implementation
-- Advanced JavaScript features (AJAX, animations, etc.)
-
-### Grading Note
-- Points are calculated per individual member
-- Each member's grade depends on their assigned tasks
-- All members must participate and complete their assigned work
-- Members not participating will receive 0 points and won't be listed in report
-
----
-
-## Contact & Questions
-
-For questions about the assignment, contact:
-- **Instructor**: [Instructor Name]
-- **Lab Session**: [Day and Time]
-
-For group coordination:
-- Share contact emails among group members
-- Notify instructor of any team changes
-
----
-
-## Development Timeline
-
-- **Week 1-2**: Planning, database design, MVC structure setup
-- **Week 3-4**: Common features (auth, user management)
-- **Week 5-6**: Individual feature development
-- **Week 7**: Integration, testing, bugfixes
-- **Week 8**: Report writing, final polishing
-- **Week 9**: Demo presentation and submission
-
----
-
-## Resources
-
-### Documentation
-- W3C Validation: http://validator.w3.org
-- Srtdash Dashboard: https://github.com/puikinsh/srtdash-admin-dashboard
-- PHP Documentation: https://www.php.net/manual/
-
-### Recommended Libraries
-- Bootstrap 5+ (for responsive design)
-- jQuery (for DOM manipulation)
-- DataTables (for table management)
-- WYSIWYG Editors (for rich text)
-- File upload libraries
-
----
-
----
-
-**Last Updated**: May 5, 2026  
-**Project Status**: Core Framework Complete - Feature Development in Progress  
-**Version**: 1.0-beta
-
-### Latest Updates (May 2026)
-✅ MVC routing system with URL rewriting  
-✅ User authentication system (login/register)  
-✅ Admin dashboard integration (Srtdash template)  
-✅ Session-based access control  
-✅ Secure password handling with PDO prepared statements  
-✅ Role-based permission checking  
-✅ Database schema with 9 normalized tables  
-✅ Complete admin template assets integrated  
-
-### ✅ Completed Recently (May 2026)
-✅ Admin Settings Management (company info, logo upload, social media)  
-✅ Admin Contacts Management (CRUD with pagination and status tracking)  
-✅ Dashboard with statistics cards for users and contacts  
-✅ Custom gold theme styling for admin interface  
-
-### 🔄 In Development
-🔄 Product management system  
-🔄 Shopping cart and order processing  
-🔄 Blog/News management  
-🔄 Comment/Review system  
-🔄 Public pages (Home, About, Contact, Products)
